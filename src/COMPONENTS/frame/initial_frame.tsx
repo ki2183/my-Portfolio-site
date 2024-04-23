@@ -11,6 +11,7 @@ export function InitialFrame({children}:InitialFrame_type){
         <div className="container-initialFrame">
             <Nav/>
             {children}
+            <div className="null-box"/>
         </div>
     )
 }

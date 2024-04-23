@@ -16,41 +16,32 @@ import git from "../../../svgFolder/git.svg"
 import github from "../../../svgFolder/github.svg"
 import aws from "../../../svgFolder/aws.svg"
 import vercel from "../../../svgFolder/vercel.svg"
+import { TreeInfo } from "../../../COMPONENTS/tree_info/tree_info"
 import { useAppSelector } from "../../../REDUX/hooks"
 
-
+const skill_tree_width = 230
+const skill_tree_gap = 16
 
 function MySkillTree(){
+
     return (
         <div className="container-myskilltree">
             <MySkillTreeTitle/>
+            <TreeAnimation/>
             <MySkillTreeView/>
-
         </div>
     )
 }
 
-function MySkillTreeTitle(){
+function MySkillTreeTitle(){ //제목
     return <div className="container-myskiltree-title">
         Developer Tree
     </div>
 }
 
-function MySkillTreeView(){
-    return <div className="conatiner-skillTreeView">
-        <MySkillFrontEnd/>
-        <MySkillBackEnd/>
-        <MySkillVersionControl/>
-    </div>
-}
+function MySkillTreeView(){ //내 기술트리
 
-export default MySkillTree
-
-function MySkillFrontEnd(){
-
-    const ref = useRef<HTMLDivElement>(null)
-
-    const dto = [
+    const frontend_dto = [
         {
             src:html,
             title:"HTML"
@@ -83,29 +74,7 @@ function MySkillFrontEnd(){
             title:"SCSS"
         }
     ]
-
-    return (
-        <div className="container-myskilltree-frontend skillTreeView">
-
-            <h2 className="skils-title">frontend</h2>
-
-            <BorderAnimation ref={ref} x={30} stagger={0.15}>
-                {
-                    ( dto && dto.length > 0 ) && dto.map((item,idx)=>(
-                        <TreeInfo key={idx} src={item.src} title={item.title} />
-                    ))
-                }
-            </BorderAnimation>
-            
-            
-        </div>
-    )
-}
-
-function MySkillBackEnd(){
-    const ref = useRef<HTMLDivElement>(null)
-
-    const dto = [
+    const backend_dto = [
         {
             src:nodejs,
             title:"NodeJs"
@@ -122,24 +91,7 @@ function MySkillBackEnd(){
         }
     ]
 
-    return (
-        <div className="container-myskilltree-backend skillTreeView">
-             <h2 className="skils-title">backend</h2>
-            <BorderAnimation ref={ref} x={30} stagger={0.15}>
-                {
-                    ( dto && dto.length > 0 ) && dto.map((item,idx)=>(
-                        <TreeInfo key={idx} src={item.src} title={item.title} />
-                    ))
-                }
-            </BorderAnimation>
-        </div>
-    )
-}
-
-function MySkillVersionControl(){
-    const ref = useRef<HTMLDivElement>(null)
-
-    const dto = [
+    const version_control_dto = [
         {
             src:git,
             title:"git"
@@ -150,20 +102,15 @@ function MySkillVersionControl(){
         }
     ]
 
-    return (
-        <div className="container-myskilltree-versionControl skillTreeView">
-            <h2 className="skils-title">VersionControl</h2>
-            <BorderAnimation ref={ref} x={30} stagger={0.15}>
-                {
-                    ( dto && dto.length > 0 ) && dto.map((item,idx)=>(
-                        <TreeInfo key={idx} src={item.src} title={item.title} />
-                    ))
-                }
-            </BorderAnimation>
-
-        </div>
-    )
+    return <div className="conatiner-skillTreeView" style={{gap:`${skill_tree_gap}px`}}>
+        <MySkillTreeContainer skill_title="frontend" dto={frontend_dto} />
+        <MySkillTreeContainer skill_title="backend" dto={backend_dto} />
+        <MySkillTreeContainer skill_title="versionControl" dto={version_control_dto} />
+    </div>
 }
+
+export default MySkillTree
+
 
 type borderAnimation_type = {
     children:ReactNode
@@ -174,7 +121,6 @@ const BorderAnimation = forwardRef<HTMLDivElement, borderAnimation_type>(({child
 
 	const el = useRef<HTMLSpanElement>(null) 
     const animation = useRef<gsap.core.Tween | null>(null);  
-    const [tf,setTF] = useState<boolean>(false)
   
     useEffect(()=>{
         const ctx = gsap.context(() => {
@@ -198,64 +144,136 @@ const BorderAnimation = forwardRef<HTMLDivElement, borderAnimation_type>(({child
     );
 });
 
-interface ContainerProps {
-    children: ReactNode;
-    stagger: number;
-    x: number;
-  }
-
-const Container: React.FC<ContainerProps & React.RefAttributes<HTMLDivElement>> = (
-    { children, stagger, x },
-    ref
-  ) => {
-    const el = useRef<HTMLDivElement>(null);
-    const animation = useRef<gsap.core.Tween>();
-    const [tf,setTF] = useState<boolean>(false)
-
-    useEffect(()=>{
-        setTimeout(()=>{setTF(!tf)},2000)
-        console.log(tf)
-    },[tf])
-  
-    useEffect(() => {
-      const ctx = gsap.context(() => {
-        if(el.current)
-        animation.current = gsap.from(el.current.children, {
-          opacity: 0,
-          stagger,
-          x,
-        });
-      });
-      return () => ctx.revert();
-    }, [tf]);
-  
-    useEffect(() => {
-      ref.current = animation.current;
-    }, [ref]);
-  
-    return <div ref={el}>{children}</div>;
-  };
-  
-type TreeInfo_type = {
-    src:string,
-    title:string
+type mySkillTreeContainer_type = {
+    skill_title:string
+    dto:{
+            src:string
+            title:string 
+        }[]
 }
 
-function TreeInfo({src,title}:TreeInfo_type){
-
-    const {tree_info_bg,tree_info_border,theme} = useAppSelector(state => state.theme)
-
-    const tree_info_style = {
-        backgroundColor:tree_info_bg,
-        boxShadow: theme === "light" ? `5px 4px 5px ${tree_info_border}`: "",
-        borderBottom : theme === "dark" ? `2px solid ${tree_info_border}`: "",
-        borderRight : theme === "dark" ? `2px solid ${tree_info_border}`: ""
-    }
+function MySkillTreeContainer({skill_title,dto}:mySkillTreeContainer_type){ //개발 트리 컨테이너
+    const ref = useRef<HTMLDivElement>(null)
 
     return (
-        <div className="tree-info" style={tree_info_style}>
-            <img className="tree-svg" src={src}/>
-            <div>{title}</div>
+        <div style={{width:skill_tree_width}}>
+            <h2 className="skils-title">{skill_title}</h2>
+            <BorderAnimation ref={ref} x={30} stagger={0.15}>
+                {
+                    ( dto && dto.length > 0 ) && dto.map((item,idx)=>(
+                        <TreeInfo key={idx} src={item.src} title={item.title} />
+                    ))
+                }
+            </BorderAnimation>
+
         </div>
     )
+}
+
+
+function TreeAnimation(){
+
+    const TreeNum = 3
+    const animationRef = useRef<Array<HTMLDivElement|null>>([])
+    const tree_animation_style = {
+        width: skill_tree_width * TreeNum + skill_tree_gap * (TreeNum - 1),
+        gridTemplateColumns: `repeat(${TreeNum}, 1fr)`
+    }
+
+    const children = Array.from({ length: TreeNum }).map((_, idx) => (
+        idx === 0 ? <TreeAnimationPart time={0.3} type="left" key={idx}/> : idx === TreeNum-1 ? <TreeAnimationPart time={0.3} type="right" key={idx}/> : <TreeAnimationPart time={0} type="middle" key={idx}/>
+      ));
+
+      
+
+    return (
+        <div className="container-tree-animation" style={tree_animation_style}>
+            {children}
+        </div>
+    )
+}
+
+type TreeAnimationPart_type={
+    type:"middle" | "left" | "right",
+    time:number
+}
+
+function TreeAnimationPart({type,time}:TreeAnimationPart_type){
+
+    const fst = useRef<HTMLDivElement>(null)
+    const sec = useRef<HTMLDivElement>(null)
+    const trd = useRef<HTMLDivElement>(null)
+    const four = useRef<HTMLDivElement>(null)
+    const color = useAppSelector(state => state.theme.text)
+
+    useEffect(()=>{
+        gsap.set(fst.current,{
+            borderRight:  type === "middle" ? `1px solid ${color}` : "",
+            transformOrigin:"top",
+            scaleY:0
+        })
+        gsap.set(trd.current,{
+            borderRight: type !== "right" ? `1px solid ${color}` : '',
+            borderTop: type !== "left" ? `1px solid ${color}` : '',
+            scale:0
+        })
+        gsap.set(four.current,{
+            borderLeft:type === "right" ? `1px solid ${color}` : '',
+            borderTop: type !== "right" ? `1px solid ${color}` : '',
+            scale:0
+        })
+
+        const tl = gsap.timeline()
+
+        if(type === "middle"){
+            tl.to(fst.current,{
+                scaleY:1,
+                duration:0.15
+            },time)
+            tl.to(trd.current,{
+                transformOrigin:"right top",
+                scale:1,
+                duration:0.15,
+            },time+0.15)
+            tl.to(four.current,{
+                transformOrigin:"left top",
+                scale:1,
+                duration:0.15,
+            },time+0.15)
+        }
+        if(type === "left"){
+            tl.to(four.current,{
+                transformOrigin:"right top",
+                scale:1,
+                duration:0.3,
+            },time-0.12)
+            tl.to(trd.current,{
+                transformOrigin:"top right",
+                scale:1,
+                duration:0.1,
+            },time+0.1)
+        }
+        if(type === "right"){
+            tl.to(trd.current,{
+                transformOrigin:"top left",
+                scale:1,
+                duration:0.3,
+            },time-0.12)
+            tl.to(four.current,{
+                transformOrigin:"left top",
+                scale:1,
+                duration:0.1,
+            },time+0.1)
+            
+        }
+        
+
+    },[color])
+
+    return <div className="container-animation-part">
+        <div ref={fst} />
+        <div ref={sec}/>
+        <div ref={trd}/>
+        <div ref={four}/>
+    </div>
 }

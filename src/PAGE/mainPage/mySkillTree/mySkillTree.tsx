@@ -16,11 +16,12 @@ import git from "../../../svgFolder/git.svg"
 import github from "../../../svgFolder/github.svg"
 import aws from "../../../svgFolder/aws.svg"
 import vercel from "../../../svgFolder/vercel.svg"
+import jira from "../../../svgFolder/jira.svg"
 import { TreeInfo } from "../../../COMPONENTS/tree_info/tree_info"
 import { useAppSelector } from "../../../REDUX/hooks"
 
 const skill_tree_width = 230
-const skill_tree_gap = 16
+const skill_tree_gap = 16*3
 
 function MySkillTree(){
 
@@ -84,7 +85,7 @@ function MySkillTreeView(){ //내 기술트리
             title:"MongoDB"
         },{
             src:aws,
-            title:"AWS"
+            title:"AWS(ec2  )"
         },{
             src:vercel,
             title:"Vercel"
@@ -99,6 +100,10 @@ function MySkillTreeView(){ //내 기술트리
         {
             src:github,
             title:"github"
+        },
+        {
+            src:jira,
+            title:"Zira"
         }
     ]
 

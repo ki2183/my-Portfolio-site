@@ -20,3 +20,7 @@ code {
 ol,ul{
   list-style: none;
 }
+
+.Noto{
+  font-family: "Noto Sans KR", sans-serif;
+}

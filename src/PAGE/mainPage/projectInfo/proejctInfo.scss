@@ -11,6 +11,9 @@ $width-max: 1280px;
 .container-projectInfo{
     width: auto;
     height: auto;
+    gap:2rem;
+    margin-top: 2rem;
+    
     &>*{
         font-family: "Noto Sans KR", sans-serif;
     }
@@ -26,12 +29,12 @@ $width-max: 1280px;
     grid-template-columns: 0.625fr 0.375fr;
     background-color: rgba(212, 212, 212, 0.132);
     border-radius: 8px;
+
     
 
     @media screen and (max-width: #{$min-width-medium}) {
         width: $width-small;
         height: calc(#{$width-small});
-        height: 150px;
     }
 
     @media screen and (max-width: #{$min-width-max}) and (min-width: #{$min-width-medium}) {
@@ -158,4 +161,5 @@ $width-max: 1280px;
     text-align: start;
     font-size: large;
     letter-spacing: 1px;
+    font-weight: 100;
 }

@@ -12,12 +12,15 @@ import jiraSVG from '../../../svgFolder/jira.svg'
 import h2SVG from '../../../svgFolder/h2.svg'
 import awsSVG from '../../../svgFolder/aws.svg'
 import springSVG from '../../../svgFolder/spring.svg'
+import { projectInfoDto, viewTree_type } from "./proejctInfoDto"
+import { useEffect } from "react"
 const react_hook_form_SVG  = "https://react-hook-form.com/images/logo/react-hook-form-logo-only.svg"
 
 
 export function ProejctInfo(){
+    
     return (
-        <div className="container-projectInfo">
+        <div className="container-projectInfo f-c-c-s">
             <ProjectView/>
         </div>
     )
@@ -25,15 +28,31 @@ export function ProejctInfo(){
 
 
 function ProjectView(){
-    return (
-        <div className="container-proeject-view">
-            <div>
-                <ProjectImg src={resister_bg} />
-                <ProejectStacks/>
-            </div>
-                <ProjectExplanation/>
 
-        </div>
+    
+    const projectInfo = projectInfoDto()
+    console.log(projectInfo)
+
+    return (
+        <>
+            {(projectInfo && projectInfo.length > 0) ? (
+                projectInfo.map((item,idx)=>(
+                    <div key={idx} className="container-proeject-view">
+                    <div>
+                        <ProjectImg src={item.src} />
+                        <ProejectStacks treeDto={item.viewTree}/>
+                    </div>
+                        <ProjectExplanation 
+                            title={item.projectInfo.title}
+                            point={item.projectInfo.point}
+                            reason={item.projectInfo.reason}
+                            result={item.projectInfo.result}
+                        />
+
+                    </div>
+                ))
+            ) : null}
+        </>
     )
 }
 
@@ -45,76 +64,20 @@ function ProjectImg({src}:ProjectImg_type){
         <img src={src}/>
     </div>
 }
-
-function ProejectStacks(){
-
-    const treeDto_front = [
-        {
-            src:htmlSVG,
-            title:"HTML"
-        },{
-            src:cssSVG,
-            title:"CSS"
-        },{
-            src:jsSVG,
-            title:"JavaScript"
-        },{
-            src:reactSVG,
-            title:"React"
-        },{
-            src:react_hook_form_SVG,
-            title:"React Hook Form"
-        }
-    ]
-
-    const treeDto_back = [
-        {
-            src:awsSVG,
-            title:"AWS",
-            active:false
-        },{
-            src:springSVG,
-            title:"Spring",
-            active:false
-        },{
-            src:h2SVG,
-            title:"h2",
-            active:false
-        }
-    ]
-
-    const treeDto_version = [
-        {
-            src:gitSVG,
-            title:"git"
-        },{
-            src:githubSVG,
-            title:"github"
-        },{
-            src:jiraSVG,
-            title:"Jira"
-        }
-    ]
-
+type projectStacks_type = {
+    treeDto:viewTree_type
+}
+function ProejectStacks({treeDto}:projectStacks_type){
+    
     return (
         <div className="container-projectStacks Noto">
-            <TreesView
-                key={0}
-                tree_dto={treeDto_front} 
-                treeTypeName="Frontend"
+            {(treeDto&&treeDto.length>0) && treeDto.map((item,idx)=>(
+                <TreesView
+                key={idx}
+                tree_dto={item.viewTree} 
+                treeTypeName={item.treeTitle}
             />
-
-            <TreesView
-                key={1}
-                tree_dto={treeDto_back} 
-                treeTypeName="Backend"
-            />
-
-            <TreesView
-                key={2}
-                tree_dto={treeDto_version} 
-                treeTypeName="Version Control"
-            />
+            ))}
         </div>
     )
 }
@@ -145,7 +108,7 @@ function TreesView({treeTypeName,tree_dto}:TreesView_type){
     )
 }
 
-type SmallTreeComponent_type = {
+export type SmallTreeComponent_type = {
     src:string,
     title:string,
     active?: boolean
@@ -172,19 +135,26 @@ function SmallTreeComponent({src,title,active}:SmallTreeComponent_type){
     )
 }
 
-function ProjectExplanation(){
+export type ProjectExplanation_type = {
+    title:string,
+    reason:string,
+    point:string,
+    result:string
+}
+
+function ProjectExplanation({title,reason,point,result}:ProjectExplanation_type){
     return (
         <div className="container-project-explanation f-c-c-s">
-            <span>배달 웹 프로젝트</span>
+            <span>{title}</span>
             <ol className="f-c-s-s">
                 <div className="info">
-                    배달 웹 사이트입니다. html css js만 다룰 줄 아는 상태에서 새로운 프레임워크와 db연동을 연습하고자 만들었어요.
+                    {reason}
                 </div>
                 <div className="info">
-                    처음엔 jira ...................
+                    {point}
                 </div>
                 <div className="info">
-                    쓰고 후기
+                    {result}
                 </div>
             </ol>
         </div>

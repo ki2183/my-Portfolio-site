@@ -1,0 +1,180 @@
+$min-width-small: 820px;
+$min-width-medium: 1120px;
+$min-width-max: 1380px;
+
+$width-small: 720px;
+$width-medium: 1020px;
+$width-max: 1280px;
+
+$border-color:white;
+.f-c-c-s{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}.f-r-c-c{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: row;
+}
+.f-c-c-c{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container-projectView{
+    width: 100vw;
+    height: auto;
+    margin-top: 3rem;
+    // background-color: rgb(113, 113, 113);
+    display: grid;
+    grid-template-columns: 1fr 64px 1fr;
+
+}
+.frame-projectView-img{
+    width: 100%;
+    height: 100vh;
+    // background-color: rgb(39, 39, 39);
+    display: flex;
+    flex-direction: column;
+
+    &>img{
+        width: 90%;
+        height: auto;
+    }
+}
+.frame-projectView-line{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.projectView-line{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &>div:nth-child(1){
+        width: 4px;
+        height: calc( 50% - 24px );
+        background-color: rgba(148, 148, 148, 0.377);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &>div{
+            width: 50%;
+            height: 100%;
+            background-color: $border-color;
+        }
+    }
+    &>div:nth-child(2){
+        width: 48px;
+        height: 48px;
+        border-radius: 100%;
+        // background-color: $border-color;
+        position: relative;
+        overflow: hidden;
+        &>div:first-child{
+            width: 48px;
+            height: 48px;
+            position: relative;
+            background-color: $border-color;
+        }
+        &>div:nth-child(2){
+                width: 90%;
+                height: 90%;
+                border-radius: 100%;
+                background-color: black;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%,-50%);
+                font-family: "Noto Sans KR", sans-serif;
+                font-weight: 600;
+                font-size: 1.2rem;
+        }
+    }
+    &>div:nth-child(3){
+        width: 4px;
+        height: calc( 50% - 24px );
+        background-color: rgba(148, 148, 148, 0.537);
+        &>div{
+            width: 50%;
+            height: 100%;
+            background-color: $border-color;
+        }
+    }
+    
+}.projectView-line:first-child{
+    &>div:first-child{
+        background-color: transparent;
+        &>div{
+            background-color: transparent;
+        }
+    }
+}.projectView-line:last-child{
+    &>div:last-child{
+        background-color: transparent;
+        &>div{
+            background-color: transparent;
+        }
+    }
+    
+}
+
+.frame-projectView-info{
+    width: 100%;
+    height: auto;
+    background-color: rgb(123, 122, 122);
+    display: flex;
+    flex-direction: column;
+    &>div{
+        width: 100%;
+        height: 100vh;
+    }
+}
+
+
+
+
+
+
+
+
+.projectIMG{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(86, 86, 86);
+}.projectLINE{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(65, 65, 65);
+}.projectINFO{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(154, 154, 154);
+}.viewIMG{
+    width: 624px;
+    height: 300px;
+    background-color: black;
+    display: none;
+}.img-view{
+    width: 90%;
+    height: 90%;
+    background-color: rgb(132, 132, 132);
+}.test{
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+}.projectView-img{
+    width: 100px;
+    height: 100px;
+    display: absolute;
+    background-color: aquamarine;
+    top: 0;
+}

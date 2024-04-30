@@ -15,13 +15,11 @@ function ProjectView(){
         w:0,
         h:0
     })
+    const [pageNum,setPageNum] = useState<number>(0)
     const bdFstRef = useRef<Array<HTMLDivElement|null>>([])
     const bdSecRef = useRef<Array<HTMLDivElement|null>>([])
     const bdTrdRef = useRef<Array<HTMLDivElement|null>>([])
-    const fstAnimationTime = 2
-    const secAnimationTime = 0.5
-    const trdAnimationTime = 2
-    const TotalAnimationTime = fstAnimationTime + secAnimationTime + trdAnimationTime
+    const informationRef = useRef<Array<HTMLDivElement|null>>([])
 
     const arr = ["","",""] 
 
@@ -31,10 +29,11 @@ function ProjectView(){
         setWH({w:width,h:height})
     }
 
+    const infoDivHeight = informationRef.current[0]?.clientHeight
 
     useEffect(()=>{
+        getWH()
         window.addEventListener('resize',getWH)
-        console.log(bdFstRef.current)
         return ()=>{
             window.removeEventListener('resize',getWH)
         }
@@ -45,79 +44,34 @@ function ProjectView(){
 
         gsap.set([".fst-line",".sec-line",".trd-line"],{
             scaleY:1,
+            scaleX:1,
             transformOrigin:"top"
         })
 
-        // gsap.set([bdTrdRef.current],{
-        //     scaleY:1,
-        //     transformOrigin:"top"
-        // })
+        for(let i = 0; i<3; i++){
+            if(i !== 0)
+                tl.from(bdFstRef.current[i],{
+                    scaleY:0,
+                    duration:2,
+                })
+            tl.from(bdSecRef.current[i],{
+                scaleY:0,
+                duration:0.05,
+                onComplete:()=>{
+                    setPageNum(i)
+                },
+                onReverseComplete:()=>{
+                    setPageNum(i)
+                },
+            })
+            if(i !==3)
+                tl.from(bdTrdRef.current[i],{
+                    scaleY:0,
+                    duration:2
+                })
+        }
 
-        // tl.from(`.sec-line:nth-child(1)`,{
-        //     scaleY:0,
-        //     duration:0.05,
-        // },0)
-        // tl.from(`.trd-line:nth-child(1)`,{
-        //     scaleY:0,
-        //     duration:2,
-        // },0.05)
-
-        // tl.from(`.fst-line:nth-child(1)`,{
-        //     scaleY:0,
-        //     duration:2,
-        // },2.05)
-        // tl.from(`.sec-line:nth-child(2)`,{
-        //     scaleY:0,
-        //     duration:0.05,
-        // },4.1)
-        // tl.from(`.trd-line:nth-child(2)`,{
-        //     scaleY:0,
-        //     duration:2,
-        // },6.1)
-
-        // tl.from(`.fst-line:nth-child(2)`,{
-        //     scaleY:0,
-        //     duration:fstAnimationTime,
-        // },0)
-        // tl.from(`.sec-line:nth-child(3)`,{
-        //     scaleY:0,
-        //     duration:secAnimationTime,
-        // },0)
-        // tl.from(`.trd-line:nth-child(3)`,{
-        //     scaleY:0,
-        //     duration:trdAnimationTime,
-        // },2.5)
-
-        tl.from(bdSecRef.current[0],{
-            scaleY:0,
-            duration:0.05,
-        })
-        tl.from(bdTrdRef.current[0],{
-            scaleY:0,
-            duration:2,
-        })
-        tl.from(bdFstRef.current[1],{
-            scaleY:0,
-            duration:2,
-        })
-        tl.from(bdSecRef.current[1],{
-            scaleY:0,
-            duration:0.05,
-        })
-        tl.from(bdTrdRef.current[1],{
-            scaleY:0,
-            duration:2,
-        })
-        tl.from(bdFstRef.current[2],{
-            scaleY:0,
-            duration:2,
-        })
-        tl.from(bdSecRef.current[2],{
-            scaleY:0,
-            duration:0.05,
-        })
-
-    
+        const tl_info = gsap.timeline()    
 
         ScrollTrigger.create({
             trigger:".frame-projectView-img",
@@ -125,7 +79,16 @@ function ProjectView(){
             scrub:1,
             start:"start start",
             end: `${ref.current?.clientHeight} ${window.innerHeight}`,
-            markers:true,
+            // markers:true,
+            pin:true,
+        })
+        ScrollTrigger.create({
+            trigger:".frame-projectView-info",
+            animation:tl_info,
+            scrub:1,
+            start:"start start",
+            end: `${ref.current?.clientHeight} ${window.innerHeight}`,
+            // markers:true,
             pin:true,
         })
     }
@@ -133,6 +96,8 @@ function ProjectView(){
     useGSAP(()=>{
         scrollTrigger_setup()     
     },[])
+
+    useEffect(()=>{console.log(pageNum)},[pageNum])
 
     useGSAP(()=>{
 
@@ -150,6 +115,38 @@ function ProjectView(){
         } 
         scroll_setup_async()
     },[wh.h])
+
+    useEffect(()=>{
+
+        const height =
+  informationRef.current[pageNum] && // 확인 1
+  informationRef.current[pageNum]!.clientHeight // 확인 2
+    ? informationRef.current[pageNum]!.clientHeight
+    : 0;
+        for(let i=0; i<3; i++){
+            if(i === pageNum)
+                gsap.to(informationRef.current[i],{
+                    duration:0.3,
+                    scale:1,
+                    opacity:1,
+                    ease:"power3.out"
+                })
+            else
+                gsap.to(informationRef.current[i],{
+                    duration:0.3,
+                    scale:0.8,
+                    opacity:0.5,
+                    ease:"power3.out"
+                })
+        }
+        gsap.to(".projectView-info",{
+            duration:0.3,
+            ease:"power3.out",
+            // y: pageNum === 0 ? (pageNum * -48 - 80) : 0
+            y: pageNum === 0 ? 0 :  (pageNum * -48 - 85)
+        })
+
+    },[pageNum])
 
     return (
         <div ref={ref} className="container-projectView">
@@ -203,9 +200,41 @@ function ProjectView(){
                 
             </div>
             <div className="frame-projectView-info">
-                <div></div>
-                <div></div>
-                <div></div>
+                <div className="f-c-c-s projectView-info" style={{
+                    marginTop:wh.h/2,
+                    // marginTop:infoDivHeight ? wh.h/2 - infoDivHeight/2 : 0, 
+                    gap:"48px"}}>
+                    <div className="f-c-c-c" ref={el => informationRef.current[0] = el}>
+                        <span>title</span>
+                        <div>
+                            
+                        </div>
+                        <div className="">
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae quaerat minima soluta adipisci voluptatum animi distinctio blanditiis provident, dolores ut, at mollitia quos sequi doloremque asperiores nam voluptas dolore cupiditate.
+                        </div>
+                    </div>
+
+                    <div className="f-c-c-c" ref={el => informationRef.current[1] = el}>
+                        <span>title</span>
+                        <div>
+                            
+                        </div>
+                        <div className="">
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae quaerat minima soluta adipisci voluptatum animi distinctio blanditiis provident, dolores ut, at mollitia quos sequi doloremque asperiores nam voluptas dolore cupiditate.
+                        </div>
+                    </div>
+
+                    <div className="f-c-c-c" ref={el => informationRef.current[2] = el}>
+                        <span>title</span>
+                        <div>
+                            
+                        </div>
+                        <div className="">
+                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae quaerat minima soluta adipisci voluptatum animi distinctio blanditiis provident, dolores ut, at mollitia quos sequi doloremque asperiores nam voluptas dolore cupiditate.
+                        </div>
+                    </div>
+                </div>
+    
             </div>
         </div>
     )

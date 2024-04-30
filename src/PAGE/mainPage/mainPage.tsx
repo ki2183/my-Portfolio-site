@@ -10,25 +10,11 @@ import { useEffect, useState } from "react"
 
 function MainPage(){
 
-    const [ProjectView_jsx,setProjectView_JSX] = useState(<ProjectView/>)
-
-    const reRender = () =>{
-      setProjectView_JSX(<ProjectView/>)
-    }
-
-    useEffect(()=>{
-      window.addEventListener('resize',reRender)
-      return()=>{
-        window.removeEventListener('resize',reRender)
-      }
-    },[])
-
     return <InitialFrame>
         <MainBanner/> 
         <MySkillTree/>
         {/* <ProejctInfo/> */}
         <ProjectView/>
-        {/* {ProjectView_jsx} */}
         <div style={{height:"50rem"}}></div>
     </InitialFrame>
   }

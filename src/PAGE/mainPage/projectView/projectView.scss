@@ -7,6 +7,13 @@ $width-medium: 1020px;
 $width-max: 1280px;
 
 $border-color:white;
+
+.f-c-s-s{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
 .f-c-c-s{
     display: flex;
     flex-direction: column;
@@ -23,6 +30,11 @@ $border-color:white;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}.f-r-c-s{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-items: flex-start;
 }
 
 .container-projectView{
@@ -43,18 +55,20 @@ $border-color:white;
     left:0;
     position: relative;
     &>div{
-        // position: absolute;
-        width: 90%;
-        height: 100vh;
-        height: auto;
+        width: 100%;
+        height: inherit;
+        &>img{
+            border-radius: 4px;
+            border: 1.5px solid rgb(37, 37, 37);
+        }
     }
-    &>div>img{
-        position: absolute;
-        left: 50%;
-        width: 80%;
-        height: auto;
-        transform: translate(-50%,-50%);
-    }
+}.projectView-img{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 80%;
+    height: auto;
+    transform: translate(-50%,-50%);
 }
 .frame-projectView-line{
     width: 100%;
@@ -128,57 +142,56 @@ $border-color:white;
     }
     
 }
-
+.projectView-info{
+    &>div{
+        gap: 0.5rem;
+    }
+}
 .frame-projectView-info{
     width: 100%;
     height: auto;
-    // background-color: rgb(123, 122, 122);
     display: flex;
     flex-direction: column;
     &>div{
-        // position: absolute;
-        // width: 100%;
-        // height: 100vh;
-        // gap:1rem;
-        // opacity: 1;
         gap: 2rem;
     }
 }
+.projectView-info-in{
+    gap: 0.5rem;
+}   
 
-
-
-
-
-
-
-
-.projectIMG{
+.projectView-info-skill-set{
     width: 100%;
-    height: 100%;
-    background-color: rgb(86, 86, 86);
-}.projectLINE{
-    width: 100%;
-    height: 100%;
-    background-color: rgb(65, 65, 65);
-}.projectINFO{
-    width: 100%;
-    height: 100%;
-    background-color: rgb(154, 154, 154);
-}.viewIMG{
-    width: 624px;
-    height: 300px;
-    background-color: black;
-    display: none;
-}.img-view{
-    width: 90%;
-    height: 90%;
-    background-color: rgb(132, 132, 132);
-}.test{
-    width: 100vw;
-    height: 100vh;
-    background-color: black;
+    height: auto;
+    &>div{
+        gap: 6px;
+    }
+    &>div>span{
+        gap:6px;
+        &>img{
+            width: 1rem;
+        }
+    }
 }
+.projectView-in-title{
+    font-size: 1rem;
+}
+.projectView-info-link{
+    width: 100%;
+    gap: 0.5rem;
+    &>span:nth-child(1){
 
-.pin-spacer{
-    margin-left: auto;
+    }
+    &>span:nth-child(2){
+        color: rgb(113, 113, 153);
+        cursor: pointer;
+        text-decoration: underline;
+    }
+    margin-bottom: 0.5rem;
+}
+.projectView-info-divide{
+    // border: 1px solid rgba(138, 138, 138, 0.482);
+    width: 95%;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }

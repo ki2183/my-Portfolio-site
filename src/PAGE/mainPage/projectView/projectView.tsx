@@ -4,6 +4,17 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import gsap from "gsap"
 import { useEffect, useRef, useState } from "react"
 import myProject from "../projectInfo/projectImgs/resister_img.png"
+import D_appProject from "../projectInfo/projectImgs/Dapp.png"
+import react_img from "../../../svgFolder/react.svg"
+import html_img from "../../../svgFolder/html.svg"
+import css_img from "../../../svgFolder/css.svg"
+import js_img from "../../../svgFolder/js.svg"
+import nodejs_img from "../../../svgFolder/nodejs.svg"
+import aws_img from "../../../svgFolder/aws.svg"
+import mysql_img from "../../../svgFolder/mysql.svg"
+import git_img from "../../../svgFolder/git.svg"
+import github_img from "../../../svgFolder/github.svg"
+
 gsap.registerPlugin(ScrollTrigger)
 
 function ProjectView(){
@@ -41,15 +52,15 @@ function ProjectView(){
 
     const scrollTrigger_setup= ()=>{
         const tl = gsap.timeline()
-        if(imgRef.current)
-            imgRef.current.forEach((child,idx)=>{
-                gsap.to(child,{
-                    x:-10*idx,
-                    y:-10*idx,
-                    zIndex:100-idx,
-                    duration:0.1,
-                })
-            })
+        // if(imgRef.current)
+        //     imgRef.current.forEach((child,idx)=>{
+        //         gsap.to(child,{
+        //             x:-10*idx,
+        //             y:-10*idx,
+        //             zIndex:100-idx,
+        //             duration:0.1,
+        //         })
+        //     })
 
         gsap.set([".fst-line",".sec-line",".trd-line"],{
             scaleY:1,
@@ -100,7 +111,7 @@ function ProjectView(){
             scrub:1,
             start:"start start",
             end: `${ref.current?.clientHeight} ${window.innerHeight}`,
-            markers:true,
+            // markers:true,
         })
         ScrollTrigger.create({
             trigger:".frame-projectView-info-in",
@@ -173,18 +184,28 @@ function ProjectView(){
         }
 
         imgRef.current.forEach((child,idx)=>{
-            gsap.to(child,{
-                x:-10*idx,
-                y:-10*idx,
-                zIndex:100-idx,
-                duration:0.1,
-            })
-            if(idx > pageNum){
-                
+            
+            const orderNum = (pageNum-idx)
+            if(pageNum <= idx){
+                gsap.to(child,{
+                    duration:0.3,
+                    top:`calc(50% + ${orderNum * 30}px)`,
+                    left:`calc(50% + ${orderNum }px)`,
+                    zIndex:100-idx,
+                    opacity:1,
+                    scale:(1 - (idx - pageNum)*0.05)
+                })
+            }
+            else{
+                gsap.to(child,{
+                    duration:0.3,
+                    top:`calc(50% - ${orderNum * 30}px)`,
+                    left:`calc(50% - ${orderNum }px)`,
+                    opacity:0,
+                    zIndex:100-idx
+                })
             }
         })
-     
-
 
     },[pageNum])
 
@@ -192,10 +213,10 @@ function ProjectView(){
         <div ref={ref} className="container-projectView">
        
             <div className="frame-projectView-img f-c-c-c">
-                <div className="projectView-img">
-                    <img ref={el => imgRef.current[0] = el} src={myProject}/>
-                    <img ref={el => imgRef.current[1] = el} src={myProject}/>
-                    <img ref={el => imgRef.current[2] = el} src={myProject}/>
+                <div>
+                    <img className="projectView-img" ref={el => imgRef.current[0] = el} src={myProject}/>
+                    <img className="projectView-img" ref={el => imgRef.current[1] = el} src={D_appProject}/>
+                    <img className="projectView-img" ref={el => imgRef.current[2] = el} src={myProject}/>
                 </div>
             </div>
             <div className="frame-projectView-line">
@@ -247,23 +268,82 @@ function ProjectView(){
                 <div className="frame-projectView-info-in f-c-c-s">
                 <div className="f-c-c-s projectView-info" style={{
                     marginTop:wh.h/2,
-                    // marginTop:infoDivHeight ? wh.h/2 - infoDivHeight/2 : 0, 
                     gap:"48px"}}>
                     <div className="f-c-c-c" ref={el => informationRef.current[0] = el}>
-                        <div className="projectView-info-in">
-                            <span>title</span>
-                            <div>
-                                
-                            </div>
-                            <div className="">
-                                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae quaerat minima soluta adipisci voluptatum animi distinctio blanditiis provident, dolores ut, at mollitia quos sequi doloremque asperiores nam voluptas dolore cupiditate.
+                        <div className="projectView-info-in f-c-c-c">
+                            <span className="projectView-in-title">한신대 수강신청 추천 웹 사이트</span>
+                            
+                            <div className="f-c-c-c">
+                                <span>
+                                    한신대 수강신청 추천 웹 사이트 입니다. 일부 학교에는 수강신청을 도와주는 웹 또는 앱이 있지만,
+                                    한신대학교에는 없어서 만들어 보았습니다. 여러 개의 질문을 응답한 뒤에 시간표를 받습니다. 
+                                    받은 시간표를 본인에게 맞게 변경할 수 있는 웹사이트입니다.
+                                </span>
+                                <span> 
+                                    만드는 과정에서 사용자 친화적인 ui/ux를 구성했다는 것에도 의미가 있었으나,
+                                    react와 애니메이션 라이브러리를 같이 사용햐여 동적인 사이트를 만들었고,
+                                    react hook의 개념을 다 잡는 경험을 가질 수 있었습니다. 
+                                </span>
                             </div>
                         </div>
+
+                        {/* <div className="projectView-info-divide"/> */}
+                        <div className="projectView-info-link f-r-c-s">
+                           <span>link:</span>
+                           <span>https://resister-course-vercel.vercel.app/</span>
+                        </div>
+
+                        <div className="projectView-info-skill-set f-c-s-s">
+                                <div className=" f-r-c-s">
+                                    
+                                    <span className="f-r-c-c">
+                                        <img src={html_img}/>
+                                        <span>html</span>
+                                    </span>
+                                    <span className="f-r-c-c">
+                                        <img src={css_img}/>
+                                        <span>css</span>
+                                    </span>
+                                    <span className="f-r-c-c">
+                                        <img src={js_img}/>
+                                        <span>js</span>
+                                    </span>
+                                    <span className="f-r-c-c">
+                                        <img src={react_img}/>
+                                        <span>react</span>
+                                    </span>
+                                </div>
+                                <div className=" f-r-c-s">
+                                    <span className="f-r-c-c">
+                                        <img src={nodejs_img}/>
+                                        <span>nodejs</span>
+                                    </span>
+                                    <span className="f-r-c-c">
+                                        <img src={aws_img}/>
+                                        <span>aws</span>
+                                    </span>
+                                    <span className="f-r-c-c">
+                                        <img src={mysql_img}/>
+                                        <span>mysql</span>
+                                    </span>
+                                </div>
+                                <div className=" f-r-c-s">
+                                    <span className="f-r-c-c">
+                                        <img src={git_img}/>
+                                        <span>git</span>
+                                    </span>
+                                    <span className="f-r-c-c">
+                                        <img src={github_img}/>
+                                        <span>github</span>
+                                    </span>
+                               
+                                </div>
+                            </div>
                         
                     </div>
 
                     <div className="f-c-c-c" ref={el => informationRef.current[1] = el}>
-                        <div className="projectView-info-in">
+                        <div className="projectView-info-in f-c-c-c">
                             <span>title</span>
                             <div>
                                 

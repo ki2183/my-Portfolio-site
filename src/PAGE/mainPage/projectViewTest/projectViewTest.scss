@@ -1,6 +1,6 @@
 .container-proejctView-total{
     width: 100vw;
-    height: 200vh;
+    height: auto;
     background-color: rgb(84, 84, 84);
     display: grid;
     grid-template-columns: 1fr 64px 1fr;
@@ -9,7 +9,8 @@
         height: 100%;
     }
     &>div:nth-child(1){
-        background-color: rgb(23, 23, 23);
+        background-color: rgb(152, 138, 138);
+        height: 150vh;
     }
     &>div:nth-child(2){
         background-color: rgb(120, 120, 120);

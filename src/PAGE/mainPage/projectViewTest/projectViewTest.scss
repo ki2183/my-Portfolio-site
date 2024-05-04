@@ -1,0 +1,20 @@
+.container-proejctView-total{
+    width: 100vw;
+    height: 200vh;
+    background-color: rgb(84, 84, 84);
+    display: grid;
+    grid-template-columns: 1fr 64px 1fr;
+    &>div{
+        // width: 500px;
+        height: 100%;
+    }
+    &>div:nth-child(1){
+        background-color: rgb(23, 23, 23);
+    }
+    &>div:nth-child(2){
+        background-color: rgb(120, 120, 120);
+    }
+    &>div:nth-child(3){
+        background-color: rgb(167, 167, 167);
+    }
+}

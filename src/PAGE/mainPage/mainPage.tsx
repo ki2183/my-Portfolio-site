@@ -10,6 +10,7 @@ import { useEffect, useState } from "react"
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { ProjectViewText } from "./projectViewTest/projectViewTest"
 gsap.registerPlugin(ScrollTrigger)
 
 function MainPage(){
@@ -20,6 +21,7 @@ function MainPage(){
         <MySkillTree/>
         {/* <ProejctInfo/> */}
         <ProjectView/>
+        <ProjectViewText/>
         <div style={{height:"50rem"}}>thisis</div>
     </InitialFrame>
   }

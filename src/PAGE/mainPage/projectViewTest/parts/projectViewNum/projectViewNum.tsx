@@ -19,6 +19,8 @@ function ProjectViewNum({page_number_handler,bdFstRef,bdSecRef,bdTrdRef}:Project
 
     const num = 3
 
+    
+
     const borderJSXArray = Array.from({length:num},(_,idx)=>(
         <div className="projectView-line" key={idx}>
             <div>

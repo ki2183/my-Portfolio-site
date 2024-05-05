@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react"
 import { useGSAP } from "@gsap/react"
 import ProjectViewNum from "./parts/projectViewNum/projectViewNum"
 import ProjectViewIMG from "./parts/proejectViewIMG/projectViewIMG"
+import { animationHooks, scroll_trigger_hooks } from "./parts/projectViewHooks"
 gsap.registerPlugin(ScrollTrigger)
 
 export type wh_type = {
@@ -49,32 +50,36 @@ export function ProjectViewText(){
 
     const num = 3
 
-    useEffect(()=>{
-        animation_set()
-    },[])
-
     useGSAP(()=>{
-        ScrollTrigger.create({
-            trigger:".frame-projectView-line",
-            animation:animation_gsap_bd(),
-            scrub:1,
-            start:"start start",
-            end: `${window.innerHeight*3} ${window.innerHeight}`,
-            markers:true
+        scroll_trigger_hooks({
+            num:3,
+            pin:false,
+            animation:animation_gsap_bd,
+            trigger:".frame-projectView-line"
         })
-    },[])
+        return ()=>{
+            animation_gsap_bd().kill()
+        }
+    },[wh])
 
-    useGSAP(()=>{
-            ScrollTrigger.create({
-            trigger:"#frame-projectView-img",
-            animation:animation_gsap(),
-            scrub:1,
-            start:"start start",
-            end: `${window.innerHeight*3} ${window.innerHeight}`,
-            markers:true,
-            pin:true,
-        })
-    },[])
+
+
+
+    // useGSAP(()=>{
+    //         ScrollTrigger.create({
+    //         trigger:"#frame-projectView-img",
+    //         animation:animation_gsap(),
+    //         scrub:1,
+    //         start:"start start",
+    //         end: `${window.innerHeight*3} ${window.innerHeight}`,
+    //         markers:true,
+    //         pin:true,
+    //     })
+
+    //     return ()=>{
+    //         animation_gsap().kill()
+    //     }
+    // },[])
 
     const animation_gsap = () =>{
 
@@ -90,27 +95,7 @@ export function ProjectViewText(){
         return tl
     }
 
-    const animation_set = () =>{
-        
-        const tl = gsap.timeline()
 
-        imgRef.current.forEach((child,idx)=>{
-            const number = idx-pageNum
-            var degree = 90/(num) * idx;
-            var radian = degree * (Math.PI / 180);
-            var value = Math.sin(radian);
-          
-            tl.set(child,{
-                zIndex:50-idx,
-                // x:`calc(30% - ${15*idx}px)`,
-                transformOrigin:"0% 50%",
-                transform: `translate(calc( 30% - ${50*value}px ) , -50%) perspective(1500px)`,
-                rotateY:25,
-                skewY:-2,
-                scale:1-idx*0.2,
-            })
-        })
-    }
 
  const animation_gsap_bd = ()=>{
      const tl = gsap.timeline()

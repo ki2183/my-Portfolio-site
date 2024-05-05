@@ -64,36 +64,31 @@ function ProjectView(){
             })
         })
 
-        // gsap.set([".fst-line",".sec-line",".trd-line"],{
-        //     scaleY:1,
-        //     scaleX:1,
-        //     transformOrigin:"top"
-        // })
-        gsap.set(".projectView-info-in",{
-            // marginLeft:"-14px"
+        gsap.set([".fst-line",".sec-line",".trd-line"],{
+            scaleY:1,
+            scaleX:1,
+            transformOrigin:"top"
         })
 
-        for(let i = 0; i<3; i++){
-            if(i !== 0)
-                tl.from(bdFstRef.current[i],{
+        bdSecRef.current.forEach((child,idx)=>{
+            if(idx !== 0)
+                tl.from(bdFstRef.current[idx],{
                     scaleY:0,
                     duration:1,
                 })
-            tl.from(bdSecRef.current[i],{
+            tl.from(bdSecRef.current[idx],{
                 scaleY:0,
                 duration:1.5,
-
                 onUpdate:()=>{
-                    setPageNum(i)
+                    setPageNum(idx)
                 }
-        
             })
-            if(i !==3)
-                tl.from(bdTrdRef.current[i],{
+            if(idx !== bdSecRef.current.length-1)
+                tl.from(bdTrdRef.current[idx],{
                     scaleY:0,
                     duration:1
                 })
-        }
+        })
 
         const tl_info = gsap.timeline()    
 
@@ -183,16 +178,19 @@ function ProjectView(){
 
         imgRef.current.forEach((child,idx)=>{
             const orderNum = (pageNum-idx)
-          
+            const degree = 90/(imgRef.current.length) * idx;
+            const radian = degree * (Math.PI / 180);
+            const value = Math.sin(radian);
+            console.log(value*15)
             if(orderNum <= 0){
                 gsap.to(child,{
                     duration:0.3,
                     zIndex:100-idx,
                     opacity:0.95,
                     transformOrigin: "0% 50%", // 요소의 중심점을 좌측으로 설정
-                    x: `-${30 - orderNum*8}% `,
-                    rotateY:30 - orderNum*10,
-                    skewY:-2,
+                    x: `-${30 + 15*value}% `,
+                    rotateY:30,
+                    skewY:-3,
                     scale:1 + orderNum*0.2,
                 })
             }
@@ -202,9 +200,9 @@ function ProjectView(){
                     zIndex:100-idx,
                     opacity:0,
                     transformOrigin: "0% 50%", // 요소의 중심점을 좌측으로 설정
-                    x: `-${30 - 16}% `,
-                    rotateY:30+idx*10,
-                    skewY:-2,
+                    x: `-${30 - 5}% `,
+                    rotateY:30,
+                    skewY:-3,
                     scale:1+orderNum*0.2,
                 })
             }
@@ -237,6 +235,14 @@ function ProjectView(){
                             <img className="" src={myProject}/>
                         </div>
                     </div>
+
+                    <div className="projectView-img" ref={el => imgRef.current[3] = el}>
+
+                        <div>
+                            <img className=""src={myProject}/>
+                            <img className="" src={myProject}/>
+                        </div>
+                    </div>
                     
                 </div>
             </div>
@@ -248,7 +254,7 @@ function ProjectView(){
                     <div className="f-c-c-c">
                         <div ref={el => bdSecRef.current[0] = el}  className="sec-line"/>
                         <div className="f-c-c-c">
-                                3
+                                4
                         </div>
                     </div>
                     <div className="f-c-c-c">
@@ -262,7 +268,7 @@ function ProjectView(){
                     <div className="f-c-c-c">
                         <div ref={el => bdSecRef.current[1] = el}  className="sec-line"/>
                         <div className="f-c-c-c">
-                                2
+                                3
                         </div>
                     </div>
                     <div className="f-c-c-c">
@@ -276,11 +282,25 @@ function ProjectView(){
                     <div className="f-c-c-c">
                         <div ref={el => bdSecRef.current[2] = el}  className="sec-line"/>
                         <div className="f-c-c-c">
-                                1
+                                2
                         </div>
                     </div>
                     <div className="f-c-c-c">
                         <div ref={el => bdTrdRef.current[2] = el} className="trd-line"/>
+                    </div>
+                </div>
+                <div className="projectView-line">
+                    <div>
+                        <div ref={el => bdFstRef.current[3] = el} className="fst-line"/>
+                    </div>
+                    <div className="f-c-c-c">
+                        <div ref={el => bdSecRef.current[3] = el}  className="sec-line"/>
+                        <div className="f-c-c-c">
+                                1
+                        </div>
+                    </div>
+                    <div className="f-c-c-c">
+                        <div ref={el => bdTrdRef.current[3] = el} className="trd-line"/>
                     </div>
                 </div>
                 
@@ -435,6 +455,78 @@ function ProjectView(){
                     </div>
 
                     <div className="f-c-c-c" ref={el => informationRef.current[2] = el}>
+                        <div className="projectView-info-in f-c-c-c">
+                            <span className="projectView-in-title">한신대 수강신청 추천 웹 사이트</span>
+                            
+                            <div className="f-c-c-c">
+                                <span>
+                                    한신대 수강신청 추천 웹 사이트 입니다. 일부 학교에는 수강신청을 도와주는 웹 또는 앱이 있지만,
+                                    한신대학교에는 없어서 만들어 보았습니다. 여러 개의 질문을 응답한 뒤에 시간표를 받습니다. 
+                                    받은 시간표를 본인에게 맞게 변경할 수 있는 웹사이트입니다.
+                                </span>
+                                <span> 
+                                    만드는 과정에서 사용자 친화적인 ui/ux를 구성했다는 것에도 의미가 있었으나,
+                                    react와 애니메이션 라이브러리를 같이 사용햐여 동적인 사이트를 만들었고,
+                                    react hook의 개념을 다 잡는 경험을 가질 수 있었습니다. 
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className="projectView-info-link f-r-c-s">
+                           <span>link:</span>
+                           <span>https://resister-course-vercel.vercel.app/</span>
+                        </div>
+
+                        <div className="projectView-info-skill-set f-c-s-s">
+                                <div className=" f-r-c-s">
+                                    
+                                    <span className="f-r-c-c">
+                                        <img src={html_img}/>
+                                        <span>html</span>
+                                    </span>
+                                    <span className="f-r-c-c">
+                                        <img src={css_img}/>
+                                        <span>css</span>
+                                    </span>
+                                    <span className="f-r-c-c">
+                                        <img src={js_img}/>
+                                        <span>js</span>
+                                    </span>
+                                    <span className="f-r-c-c">
+                                        <img src={react_img}/>
+                                        <span>react</span>
+                                    </span>
+                                </div>
+                                <div className=" f-r-c-s">
+                                    <span className="f-r-c-c">
+                                        <img src={nodejs_img}/>
+                                        <span>nodejs</span>
+                                    </span>
+                                    <span className="f-r-c-c">
+                                        <img src={aws_img}/>
+                                        <span>aws</span>
+                                    </span>
+                                    <span className="f-r-c-c">
+                                        <img src={mysql_img}/>
+                                        <span>mysql</span>
+                                    </span>
+                                </div>
+                                <div className=" f-r-c-s">
+                                    <span className="f-r-c-c">
+                                        <img src={git_img}/>
+                                        <span>git</span>
+                                    </span>
+                                    <span className="f-r-c-c">
+                                        <img src={github_img}/>
+                                        <span>github</span>
+                                    </span>
+                               
+                                </div>
+                            </div>
+                        
+                    </div>
+
+                    <div className="f-c-c-c" ref={el => informationRef.current[3] = el}>
                         <div className="projectView-info-in f-c-c-c">
                             <span className="projectView-in-title">한신대 수강신청 추천 웹 사이트</span>
                             

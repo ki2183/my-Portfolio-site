@@ -64,11 +64,11 @@ function ProjectView(){
             })
         })
 
-        gsap.set([".fst-line",".sec-line",".trd-line"],{
-            scaleY:1,
-            scaleX:1,
-            transformOrigin:"top"
-        })
+        // gsap.set([".fst-line",".sec-line",".trd-line"],{
+        //     scaleY:1,
+        //     scaleX:1,
+        //     transformOrigin:"top"
+        // })
         gsap.set(".projectView-info-in",{
             // marginLeft:"-14px"
         })
@@ -191,7 +191,7 @@ function ProjectView(){
                     opacity:0.95,
                     transformOrigin: "0% 50%", // 요소의 중심점을 좌측으로 설정
                     x: `-${30 - orderNum*8}% `,
-                    rotateY:30-orderNum*10,
+                    rotateY:30 - orderNum*10,
                     skewY:-2,
                     scale:1 + orderNum*0.2,
                 })

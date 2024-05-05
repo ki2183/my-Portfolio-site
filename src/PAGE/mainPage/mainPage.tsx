@@ -20,7 +20,7 @@ function MainPage(){
         <MainBanner/> 
         <MySkillTree/>
         {/* <ProejctInfo/> */}
-        <ProjectView/>
+        {/* <ProjectView/> */}
         <ProjectViewText/>
         <div style={{height:"50rem"}}>thisis</div>
     </InitialFrame>

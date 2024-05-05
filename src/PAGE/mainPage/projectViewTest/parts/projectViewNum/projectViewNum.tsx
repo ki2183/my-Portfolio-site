@@ -2,30 +2,35 @@ import "./projectViewNum.scss"
 import "../flex.scss"
 import { useRef } from "react"
 import { useGSAP } from "@gsap/react"
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+gsap.registerPlugin(ScrollTrigger)
 
-function ProjectViewNum(){
+type ProjectViewNum_type = {
+    page_number_handler:(num:number)=>void,
+    bdFstRef : React.MutableRefObject<(HTMLDivElement | null)[]>
+    bdSecRef : React.MutableRefObject<(HTMLDivElement | null)[]>
+    bdTrdRef : React.MutableRefObject<(HTMLDivElement | null)[]>
 
-    const bdFstRef = useRef<Array<HTMLDivElement|null>>([])
-    const bdSecRef = useRef<Array<HTMLDivElement|null>>([])
-    const bdTrdRef = useRef<Array<HTMLDivElement|null>>([])
+}
+
+function ProjectViewNum({page_number_handler,bdFstRef,bdSecRef,bdTrdRef}:ProjectViewNum_type){
+
+
     const num = 3
 
-    useGSAP(()=>{
-        
-    },[])
-
     const borderJSXArray = Array.from({length:num},(_,idx)=>(
-        <div className="projectView-line">
+        <div className="projectView-line" key={idx}>
             <div>
                 <div ref={el => bdFstRef.current[idx] = el} className="fst-line"/>
             </div>
-            <div className="f-c-c-c">
+            <div className="fccc">
                 <div ref={el => bdSecRef.current[idx] = el}  className="sec-line"/>
-                <div className="f-c-c-c">
+                <div className="fccc">
                         {num - idx}
                 </div>
             </div>
-            <div className="f-c-c-c">
+            <div className="fccc">
                 <div ref={el => bdTrdRef.current[idx] = el} className="trd-line"/>
             </div>
         </div>

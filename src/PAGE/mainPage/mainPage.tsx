@@ -1,16 +1,11 @@
-import { useDispatch } from "react-redux"
-import { useAppSelector } from "../../REDUX/hooks"
 import "./mainPage.scss"
 import { InitialFrame } from "../../COMPONENTS/frame/initial_frame"
 import MainBanner from "./mainBanner/mainBanner"
-import MySkillTree from "./mySkillTree/mySkillTree"
-import { ProejctInfo } from "./projectInfo/proejctInfo"
 import ProjectView from "./projectView/projectView"
-import { useEffect, useState } from "react"
 import gsap from "gsap"
-import { useGSAP } from "@gsap/react"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { ProjectViewText } from "./projectViewTest/projectViewTest"
+import Myskills from "./mySkills/myskills"
+import MyBlog from "./myBlog/myBlog"
 gsap.registerPlugin(ScrollTrigger)
 
 function MainPage(){
@@ -18,11 +13,9 @@ function MainPage(){
 
     return <InitialFrame>
         <MainBanner/> 
-        <MySkillTree/>
-        {/* <ProejctInfo/> */}
-        <ProjectView/>
-        {/* <ProjectViewText/> */}
-        <div style={{height:"50rem"}}>thisis</div>
+        <Myskills/>
+        <MyBlog/>
+        <ProjectView/>  
     </InitialFrame>
   }
 

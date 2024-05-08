@@ -1,6 +1,15 @@
 .container-mainBanner{
     width: 100%;
-    height: 720px;
-    background-color: rgb(70, 70, 70);
-    border-bottom: 1px solid #666;
+    height: 50vh;
+    display: grid;
+    grid-template-columns: 3fr 7fr;
+    &>div:nth-child(2){
+        display: flex;
+        padding:1rem;
+        font-size: 3rem;
+        &>span{
+            width: 80%;
+            text-align: start;
+        }
+    }
 }

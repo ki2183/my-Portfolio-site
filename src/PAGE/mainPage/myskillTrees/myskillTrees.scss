@@ -1,0 +1,25 @@
+.container-myskilltrees{
+    width: 100%;
+    height:50vh;
+    display: grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap: 1rem;
+    &>div{
+        
+    }
+}
+.conatiner-frontend{
+    background: linear-gradient(30deg, #5755ff, #7cd3fa);
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content:flex-end;
+    // width: 100%;
+    padding: 1rem;
+    font-size: 2rem;
+}
+.conatiner-backend{
+    background: linear-gradient(30deg, #ff5555, #fa957c);
+}.conatiner-versionControl{
+    background: linear-gradient(30deg, white, white);
+}

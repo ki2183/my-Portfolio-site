@@ -1,17 +1,5 @@
 import { useAppSelector } from "../../../REDUX/hooks"
 import "./proejctInfo.scss"
-import resister_bg from "./projectImgs/resister_img.png"
-import techTree from "./projectImgs/techTree.svg"
-import htmlSVG from '../../../svgFolder/html.svg'
-import cssSVG from '../../../svgFolder/css.svg'
-import jsSVG from '../../../svgFolder/js.svg'
-import reactSVG from '../../../svgFolder/react.svg'
-import gitSVG from '../../../svgFolder/git.svg'
-import githubSVG from '../../../svgFolder/github.svg'
-import jiraSVG from '../../../svgFolder/jira.svg'
-import h2SVG from '../../../svgFolder/h2.svg'
-import awsSVG from '../../../svgFolder/aws.svg'
-import springSVG from '../../../svgFolder/spring.svg'
 import { projectInfoDto, viewTree_type } from "./proejctInfoDto"
 import { useEffect } from "react"
 const react_hook_form_SVG  = "https://react-hook-form.com/images/logo/react-hook-form-logo-only.svg"

@@ -1,29 +1,30 @@
 import "./myskillTrees.scss"
 import '../../../flex.scss'
 import "../../../font.scss"
-import { ReactNode, useEffect, useLayoutEffect, useRef } from "react"
-import gsap from "gsap"
+import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react"
 import { useGSAP } from "@gsap/react"
-import { hover } from "@testing-library/user-event/dist/hover"
 import { hookAnimation } from "./hooks"
 import GetSVG from "../../../FOLDER_svg/getSVG"
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+gsap.registerPlugin(ScrollTrigger)
+
 function MyskillTrees(){
 
-    useLayoutEffect(()=>{
-        const tl = gsap.timeline()
-        tl.set(".container-frontend-out",{
-            transform:"translate(70%,-200px)"
-        })
-        tl.set(".container-backend-out",{
-            transform:"translate(-70%,-50px)"
-        })
-        tl.set(".container-vc-out",{
-            transform:"translate(-150%,-70%)"
-        })
-    },[])
+    const initialWH = {
+        w:0,
+        h:0
+    }
+    type wh_type = typeof initialWH
+    const [wh,setWH] = useState<wh_type>(initialWH)
+    const containerRef = useRef<HTMLDivElement>(null)
     
+    const setWH_handler = (w:number,h:number)=>{
+        setWH({w,h})
+    }
+
     return(
-        <div className="container-myskilltrees">
+        <div className="container-myskilltrees" ref={containerRef}>
             <AboutMe/>
             <AboutFrontend/>
             <AboutBackend/>
@@ -99,7 +100,7 @@ function AboutFrontend(){
                 <ol className="fcsc">
                     {
                         (svgArr && svgArr.length > 0) && svgArr.map((item,idx)=>(
-                            <li className="frcc">
+                            <li className="frcc" key={idx}>
                             <GetSVG src={item.src}/>
                             <span>{item.name}</span>
                         </li>
@@ -138,7 +139,7 @@ function AboutBackend(){
             <ol className="fcsc">
                 {
                     (svgArr && svgArr.length > 0) && svgArr.map((item,idx)=>(
-                        <li className="frcc">
+                        <li className="frcc" key={idx}>
                         <GetSVG src={item.src}/>
                         <span>{item.name}</span>
                     </li>
@@ -174,7 +175,7 @@ function AboutVersionControl(){
             <ol className="fcsc">
                 {
                     (svgArr && svgArr.length > 0) && svgArr.map((item,idx)=>(
-                        <li className="frcc">
+                        <li className="frcc" key={idx}>
                         <GetSVG src={item.src}/>
                         <span>{item.name}</span>
                     </li>
@@ -213,6 +214,31 @@ function AboutFrame({
             outRef.current?.removeEventListener('mouseleave',onLeave)
         }
     },{scope:outRef.current!})
+
+    const animation = () =>{
+        const tl = gsap.timeline()
+        tl.from(`.${class_name_out}`,{
+            scale:0,
+            duration:0.5,
+        })
+        ScrollTrigger.create({
+            trigger:".container-myskilltrees",
+            markers:true,
+            animation:tl,
+            start:"center center",
+            end:"center center",
+            toggleActions:"restart none reverse none"
+        })
+    }   
+    useEffect(()=>{
+        animation()
+    },[])
+    useGSAP(()=>{
+        window.addEventListener('resize',animation)
+        return ()=>{
+            gsap.killTweensOf([inRef.current,outRef.current])
+        }
+    },{})
 
     return (
         <div 

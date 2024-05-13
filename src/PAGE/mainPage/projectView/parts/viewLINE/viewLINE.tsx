@@ -1,3 +1,4 @@
+import { useAppSelector } from "../../../../../REDUX/hooks"
 import "./viewLINE.scss"
 
 type ViewLINE_type = {
@@ -44,19 +45,21 @@ function ViewLINEBorder({
     bdSecRef,
     bdTrdRef,
 }:ViewLINEBorder_interface){
+    const {bg,text} = useAppSelector(state => state.theme)
+    const tf = bdSecRef.current.length-1 === idx
     return(
         <div className="projectView-line">
             <div>
-                <div ref={el => bdFstRef.current[idx] = el} className="fst-line"/>
+                <div style={{backgroundColor:idx === 0 ? "": text}} ref={el => bdFstRef.current[idx] = el} className="fst-line"/>
             </div>
             <div className="f-c-c-c">
-                <div ref={el => bdSecRef.current[idx] = el}  className="sec-line"/>
-                <div className="f-c-c-c">
+                <div ref={el => bdSecRef.current[idx] = el} style={{backgroundColor:text}}   className="sec-line"/>
+                <div className="f-c-c-c" style={{backgroundColor:bg}}>
                         {bdFstRef.current.length - idx}
                 </div>
             </div>
             <div className="f-c-c-c">
-                <div ref={el => bdTrdRef.current[idx] = el} className="trd-line"/>
+                <div style={{backgroundColor:!tf ? text : ""}}  ref={el => bdTrdRef.current[idx] = el} className="trd-line"/>
             </div>
         </div>
     )

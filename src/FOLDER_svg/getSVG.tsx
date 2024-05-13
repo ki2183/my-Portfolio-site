@@ -20,9 +20,10 @@ import scss from "./scss.svg"
 
 type GetSVG_type = {
     src:string
+    class_name?:string
 }
 
-function GetSVG({src}:GetSVG_type){
+function GetSVG({src,class_name}:GetSVG_type){
 
     let src_ = ""
     if (src === "html")
@@ -65,7 +66,8 @@ function GetSVG({src}:GetSVG_type){
         src_ = scss
 
     return(
-        <img
+        <img 
+            className={class_name}
             src={src_}
         />
     )

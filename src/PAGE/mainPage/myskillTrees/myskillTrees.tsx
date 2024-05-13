@@ -5,17 +5,20 @@ import { ReactNode, useEffect, useLayoutEffect, useRef, useState } from "react"
 import { useGSAP } from "@gsap/react"
 import { hookAnimation } from "./hooks"
 import GetSVG from "../../../FOLDER_svg/getSVG"
-import gsap from 'gsap';
+import gsap, { TweenLite } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useAppSelector } from "../../../REDUX/hooks"
 gsap.registerPlugin(ScrollTrigger)
+
+const initialWH = {
+    w:0,
+    h:0
+}
+type wh_type = typeof initialWH
 
 function MyskillTrees(){
 
-    const initialWH = {
-        w:0,
-        h:0
-    }
-    type wh_type = typeof initialWH
+    
     const [wh,setWH] = useState<wh_type>(initialWH)
     const containerRef = useRef<HTMLDivElement>(null)
     
@@ -23,29 +26,44 @@ function MyskillTrees(){
         setWH({w,h})
     }
 
+    const resize_handler = ()=>{
+        setWH_handler(window.innerWidth,window.innerHeight)
+    }
+
+    useEffect(()=>{
+        window.addEventListener('resize',resize_handler)
+        return()=>{
+            window.removeEventListener('resize',resize_handler)
+        }
+    },[wh])
+
     return(
         <div className="container-myskilltrees" ref={containerRef}>
-            <AboutMe/>
-            <AboutFrontend/>
-            <AboutBackend/>
-            <AboutVersionControl/>
+            <AboutMe wh={wh}/>
+            <AboutFrontend wh={wh}/>
+            <AboutBackend wh={wh}/>
+            <AboutVersionControl wh={wh}/>
         </div>
     )
 }
 
 export default MyskillTrees;
-
-function AboutMe(){
-
+type about_type = {
+    wh:wh_type,
+}
+function AboutMe({wh}:about_type){
+    const {theme} = useAppSelector(state => state.theme)
     return (
             <AboutFrame 
+                y={-50}
+                wh={wh}
                 title={"about-me"}
                 class_name_in="container-aboutme-in"
                 class_name_out="container-aboutme-out"
             >
                     <ol className="fcss">
                         <li>
-                            <span>1</span> 안녕하세요! 저는 프론트엔드 신입개발자가 되길 바라는 <span className="green">김기준</span>입니다.
+                            <span>1</span> 안녕하세요! 저는 프론트엔드 신입개발자가 되길 바라는 <span className={theme === "dark"?"green":"blue"}>김기준</span>입니다.
                         </li>
                         <li>
                             <span>2</span> 저는 김기준입니다.
@@ -58,12 +76,12 @@ function AboutMe(){
     )
 }
 
-function AboutFrontend(){
+function AboutFrontend({wh}:about_type){
 
     const svgArr = [
         {
             src:"html",
-            name:"html"
+            name:"html",
         },{
             src:"css",
             name:"css"
@@ -93,6 +111,8 @@ function AboutFrontend(){
 
     return (
         <AboutFrame 
+                x={210}
+                wh={wh}
                 title={"frontend-me"}
                 class_name_in="container-frontend-in"
                 class_name_out="container-frontend-out"
@@ -112,26 +132,32 @@ function AboutFrontend(){
     )
 }
 
-function AboutBackend(){
+function AboutBackend({wh}:about_type){
 
     const svgArr = [
         {
             src:"nodejs",
-            name:"nodeJS"
+            name:"nodeJS",
+            baseColor:"base-black-svg"
         },{
             src:"mongodb",
-            name:"mongoDB"
+            name:"mongoDB",
+            baseColor:"none"
         },{
             src:"aws",
-            name:"aws"
+            name:"aws",
+            baseColor:"base-white-svg"
         },{
             src:"vercel",
-            name:"vercel"
+            name:"vercel",
+            baseColor:"base-white-svg"
         }
     ]
 
     return (
         <AboutFrame 
+                x={-400}
+                wh={wh}
                 title={"backend-me"}
                 class_name_in="container-backend-in"
                 class_name_out="container-backend-out"
@@ -140,7 +166,7 @@ function AboutBackend(){
                 {
                     (svgArr && svgArr.length > 0) && svgArr.map((item,idx)=>(
                         <li className="frcc" key={idx}>
-                        <GetSVG src={item.src}/>
+                        <GetSVG class_name={item.baseColor} src={item.src}/>
                         <span>{item.name}</span>
                     </li>
                     ))
@@ -151,23 +177,29 @@ function AboutBackend(){
     )
 }
 
-function AboutVersionControl(){
+function AboutVersionControl({wh}:about_type){
 
     const svgArr = [
         {
             src:"git",
-            name:"git"
+            name:"git",
+            baseColor:""
         },{
             src:"github",
-            name:"github"
+            name:"github",
+            baseColor:"base-white-svg"
         },{
             src:"jira",
-            name:"jira"
+            name:"jira",
+            baseColor:""
         }
     ]
 
     return (
         <AboutFrame 
+                y={-50}
+                x={-550}
+                wh={wh}
                 title={"version-control-me"}
                 class_name_in="container-vc-in"
                 class_name_out="container-vc-out"
@@ -176,7 +208,7 @@ function AboutVersionControl(){
                 {
                     (svgArr && svgArr.length > 0) && svgArr.map((item,idx)=>(
                         <li className="frcc" key={idx}>
-                        <GetSVG src={item.src}/>
+                        <GetSVG class_name={item.baseColor} src={item.src}/>
                         <span>{item.name}</span>
                     </li>
                     ))
@@ -189,6 +221,9 @@ function AboutVersionControl(){
 
 
 type AboutFrame_type = {
+    x?:number,
+    y?:number,
+    wh:wh_type
     title:string
     children:ReactNode
     class_name_in:string
@@ -196,6 +231,9 @@ type AboutFrame_type = {
 }
 
 function AboutFrame({
+    x,
+    y,
+    wh,
     title,
     children,
     class_name_in,
@@ -205,6 +243,9 @@ function AboutFrame({
     const inRef = useRef<HTMLDivElement>(null)
     const outRef = useRef<HTMLDivElement>(null)
     const {onLeave,onMove} = hookAnimation({outRef,inRef})
+    const {window,tree_info_border} = useAppSelector(state => state.theme)
+
+    let animation_:TweenLite|null = null
  
     useGSAP(()=>{
         outRef.current?.addEventListener('mousemove',onMove)
@@ -213,38 +254,39 @@ function AboutFrame({
             outRef.current?.removeEventListener('mousemove',onMove)
             outRef.current?.removeEventListener('mouseleave',onLeave)
         }
-    },{scope:outRef.current!})
+    },{scope:".container-myskilltrees",dependencies:[wh]})
 
-    const animation = () =>{
-        const tl = gsap.timeline()
-        tl.from(`.${class_name_out}`,{
-            scale:0,
-            duration:0.5,
+    const ani = () => {
+        const tl = gsap.to(outRef.current,{
+            x:x,
+            y:y,
+            duration: 1,
+            scrollTrigger:{
+                scrub:1,
+                trigger: outRef.current,
+                start: "0% 80%",
+                end: "100% 80%",
+                toggleActions:"restart none reverce none"
+            }
         })
-        ScrollTrigger.create({
-            trigger:".container-myskilltrees",
-            markers:true,
-            animation:tl,
-            start:"center center",
-            end:"center center",
-            toggleActions:"restart none reverse none"
-        })
-    }   
+        return tl
+    }
+
     useEffect(()=>{
-        animation()
-    },[])
-    useGSAP(()=>{
-        window.addEventListener('resize',animation)
+        ani()
         return ()=>{
-            gsap.killTweensOf([inRef.current,outRef.current])
-        }
-    },{})
+            ani().kill()
+        }    
+    },[wh])
 
+    
     return (
         <div 
             ref={outRef}
             className={`container-about-out ${class_name_out}`}>
-                <div ref={inRef} className={`container-about-in ${class_name_in}`}>
+                <div ref={inRef} className={`container-about-in ${class_name_in}`}
+                    style={{background:window}}
+                >
                     <div>
                         
                         <div className="frcc">

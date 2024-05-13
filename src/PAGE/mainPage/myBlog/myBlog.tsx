@@ -1,15 +1,26 @@
 import "./myBlog.scss"
 import "../../../flex.scss"
-import GetSVG from "../../../FOLDER_svg/getSVG"
 import velog from "../../../svgFolder/velog.svg"
+import github from "../../../svgFolder/github.svg"
+import velog_white from "../../../svgFolder/velog_white.svg"
+import github_white from "../../../svgFolder/github_white.svg"
 import { useEffect, useRef, useState } from "react"
 import gsap from "gsap"
+import { useAppSelector } from "../../../REDUX/hooks"
+import { useGSAP } from "@gsap/react"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+gsap.registerPlugin(ScrollTrigger)
 
-
+const initialWH = {
+    w:0,
+    h:0
+}
+type wh_type = typeof initialWH
 
 function MyBlog(){
     const initialXY = {x:0,y:0}
     type mouseXY_type = typeof initialXY
+    const {bg, text,theme} = useAppSelector(state => state.theme)
 
     const elRef = useRef<Array<HTMLDivElement|null>>([]) 
     const animation = useRef<Array<gsap.core.Tween | null>>([]);  
@@ -52,7 +63,7 @@ function MyBlog(){
 
     const mouse_move_event = (e:MouseEvent,idx:number) =>{
         if(circleRef.current[idx])
-            gsap.to(circleRef.current[idx],{left:e.offsetX,top:e.offsetY})
+            gsap.to(circleRef.current[idx],{left:e.offsetX,top:e.offsetY,duration:1})
     }
 
     useEffect(()=>{
@@ -75,25 +86,40 @@ function MyBlog(){
         }
     },[])
 
-    useEffect(()=>{
-        console.log(mouseXY)
-    },[mouseXY])
-
-    useEffect(()=>{
-        gsap.to('.ss',{
-            opacity:1,
-            scale:1
+    const scroll_event =()=>{
+        const tl = gsap.timeline()
+        tl.from(elRef.current[0],{
+            y:50,
+            duration:0.5,
         })
-    },[])
+        tl.from(elRef.current[1],{
+            y:50,
+            duration:0.5,
+        },0.5)
+        ScrollTrigger.create({
+            trigger:".container-myBlog",
+            animation:tl,
+            // scrub:1,
+            start:"center 90%",
+            end:"center 90%",
+            toggleActions:"restart none reverse none"
+        })
+    }
 
+    useGSAP(()=>{
+        scroll_event()
+    },[])    
 
     return(
         <div className="container-myBlog frcc" >
             <div className="fcsc blog" ref={el => elRef.current[0] = el} 
             >
-                <div className="blog-in fcsc">
+                <div className="blog-in fcsc" 
+                // style={{color:text}}
+                style={{backgroundColor:bg}}
+                >
                     <span className="myBlog-svg frcc">
-                        <GetSVG src="github"/>
+                        <img src={theme === 'dark'? github : github_white}/>
                         <span>GitHub</span>
                     </span>
                     <span className="blog-link">https://github.com/ki2183</span>
@@ -109,9 +135,11 @@ function MyBlog(){
             </div>
             <div className="fcsc blog" ref={el => elRef.current[1] = el} 
             >
-                <div className="blog-in fcsc">
+                <div className="blog-in fcsc"
+                    style={{backgroundColor:bg}}
+                >
                     <span className="myBlog-svg frcc">
-                        <img src={velog}/>
+                    <img src={theme === 'dark'? velog : velog_white}/>
                         <span>GitHub</span>
                     </span>
                     <span className="blog-link">https://velog.io/@ki2183/posts</span>
@@ -126,11 +154,11 @@ function MyBlog(){
             </div>
          
 
-            <div className="fcsc blog" >
+            {/* <div className="fcsc blog" >
                 <div className="blog-in fcsc">
                     빈박스
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }

@@ -22,8 +22,8 @@ export function hookAnimation({outRef,inRef}:hookAnimation_type){
             tl.to(inRef.current,{
                 left:`${rate.x}%`,
                 top:`${rate.y}%`,
-                ease:"power1.out",
-                duration:1.5
+                ease:"power4.out",
+                duration:2
             })
         }
         return tl

@@ -1,18 +1,19 @@
-$width:28rem;
+$width:18rem;
 
 .container-myBlog{
+    background-color:#2828280d;
     width: 100vw;
-    height: 16rem;
+    height: 22rem;
     gap: 4rem; 
-    margin-top: 10rem;
+    // margin-top: 10rem;
     
 }
 .blog{
-        background-color: black;
+        // background-color: black;
         padding: 1rem;
         width: $width;
         height: $width;
-        border: 1px solid white;
+        border: 1px solid rgb(172, 172, 172);
         border-radius: 0.4rem;
         position: relative;   
         &>span{
@@ -48,8 +49,8 @@ $width:28rem;
 }
 .mirror-circle{
     position: absolute;
-    width: 5rem;
-    height: 5rem;
+    width: 4rem;
+    height: 4rem;
     opacity: 0.7;
     pointer-events: none;
 
@@ -57,7 +58,7 @@ $width:28rem;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    background-color: rgba(255, 255, 255, 1);
+    background-color: rgb(255, 255, 255);
     user-select: none;
     pointer-events: none;
     mix-blend-mode: difference;

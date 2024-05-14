@@ -7,25 +7,23 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import MyBlog from "./myBlog/myBlog"
 import MyskillTrees from "./myskillTrees/myskillTrees"
 import { useEffect, useState } from "react"
+import { useAppSelector } from "../../REDUX/hooks"
+import ReactModal from "react-modal"
+import { useDispatch } from "react-redux"
+import { modal_close } from "../../REDUX/Slices/modalSlice"
 gsap.registerPlugin(ScrollTrigger)
 
 function MainPage(){
-  
-    const [jsx,setJSX] = useState<JSX.Element|null>(<MyBlog/>)
 
-    useEffect(()=>{
-      window.addEventListener('resize',()=>{
-        console.log(""); 
-        setJSX(<MyBlog/>)
-      })
-    },[])
+    const modal = useAppSelector(state => state.modal)
+    const dispatch = useDispatch()
 
     return <InitialFrame>
         <MainBanner/> 
         <MyskillTrees/>
-        {/* <MyBlog/> */}
-        {jsx}
+        <MyBlog/>
         <ProjectView/>  
+
     </InitialFrame>
   }
 

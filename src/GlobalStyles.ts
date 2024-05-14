@@ -26,6 +26,8 @@ export const GlobalStyle = createGlobalStyle`
         filter:${({ theme }: { theme: any }) => theme.svg_white};
     }.base-white-svg{
         filter:${({ theme }: { theme: any }) => theme.svg_black};
+    }.conatiner-modal-li{
+        background:${({ theme }: { theme: any }) => theme.window};
     }
 }
 

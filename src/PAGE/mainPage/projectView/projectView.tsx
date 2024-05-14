@@ -8,6 +8,7 @@ import ViewIMG from "./parts/viewIMG/viewIMG"
 import ViewLINE from "./parts/viewLINE/viewLINE"
 import ViewINFO from "./parts/viewINFO/viewINFO"
 import { project_information } from "../../../projectInformation"
+import ViewModal from "../../../COMPONENTS/modal/modal"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -73,7 +74,7 @@ function ProjectView(){
 
     return (
         <div ref={ref} className="container-projectView">
-       
+            <ViewModal/>
            <ViewIMG imgRef={imgRef}/>
            <ViewLINE
                 num={project_information.length}

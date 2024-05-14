@@ -16,7 +16,7 @@ export const darkTheme = {
     theme:"dark",
     tree_info_bg:"rgba(132, 132, 132, 0.438)",
     tree_info_border:"#ffffff42",
-    window:"linear-gradient(31deg, rgb(36, 36, 36), rgb(51, 51, 51) 75%)",
+    window:"linear-gradient(31deg, rgb(36, 36, 36), rgb(48 48 48) 75%)",
     window_bd:"#bebebe",
     svg_black:"invert(0%)",
     svg_white:"invert(100%)"

@@ -1,14 +1,14 @@
 import "./myBlog.scss"
 import "../../../flex.scss"
-import velog from "../../../svgFolder/velog.svg"
-import github from "../../../svgFolder/github.svg"
-import velog_white from "../../../svgFolder/velog_white.svg"
-import github_white from "../../../svgFolder/github_white.svg"
+import velog from "../../../FOLDER_svg/velog.svg"
+import github from "../../../FOLDER_svg/github.svg"
 import { useEffect, useRef, useState } from "react"
 import gsap from "gsap"
 import { useAppSelector } from "../../../REDUX/hooks"
 import { useGSAP } from "@gsap/react"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useNavigate } from "react-router-dom"
+import GetSVG from "../../../FOLDER_svg/getSVG"
 gsap.registerPlugin(ScrollTrigger)
 
 const initialWH = {
@@ -20,14 +20,14 @@ type wh_type = typeof initialWH
 function MyBlog(){
     const initialXY = {x:0,y:0}
     type mouseXY_type = typeof initialXY
-    const {bg, text,theme} = useAppSelector(state => state.theme)
+    const {bg} = useAppSelector(state => state.theme)
 
     const elRef = useRef<Array<HTMLDivElement|null>>([]) 
-    const animation = useRef<Array<gsap.core.Tween | null>>([]);  
-    const [mouseXY,setMouseXY] = useState<mouseXY_type>(initialXY)
-    const [overCheck,setOverCheck] = useState<boolean>(false)
-    const circle = useRef<HTMLDivElement>(null)
     const circleRef = useRef<Array<HTMLDivElement|null>>([])
+
+    const goURL = (url:string) =>{
+        window.location.href = url
+    }
 
     const animation_enter = (e:MouseEvent,idx:number)=>{
         
@@ -113,13 +113,13 @@ function MyBlog(){
     return(
         <div className="container-myBlog frcc" >
             <div className="fcsc blog" ref={el => elRef.current[0] = el} 
+                onClick={()=>goURL("https://github.com/ki2183")}
             >
                 <div className="blog-in fcsc" 
-                // style={{color:text}}
                 style={{backgroundColor:bg}}
                 >
                     <span className="myBlog-svg frcc">
-                        <img src={theme === 'dark'? github : github_white}/>
+                        <GetSVG src="github" class_name="base-white-svg"/>
                         <span>GitHub</span>
                     </span>
                     <span className="blog-link">https://github.com/ki2183</span>
@@ -134,13 +134,14 @@ function MyBlog(){
                 </div>
             </div>
             <div className="fcsc blog" ref={el => elRef.current[1] = el} 
+                onClick={()=>goURL("https://velog.io/@ki2183/posts")}
             >
                 <div className="blog-in fcsc"
                     style={{backgroundColor:bg}}
                 >
                     <span className="myBlog-svg frcc">
-                    <img src={theme === 'dark'? velog : velog_white}/>
-                        <span>GitHub</span>
+                    <GetSVG class_name="base-white-svg" src="velog"/>
+                        <span>velog</span>
                     </span>
                     <span className="blog-link">https://velog.io/@ki2183/posts</span>
                     <li>학습하고 내용을 공유</li>
@@ -152,13 +153,6 @@ function MyBlog(){
                     <div ref={el =>{circleRef.current[1] = el}} className="mirror-circle"/>
                 </div>
             </div>
-         
-
-            {/* <div className="fcsc blog" >
-                <div className="blog-in fcsc">
-                    빈박스
-                </div>
-            </div> */}
         </div>
     )
 }

@@ -254,7 +254,7 @@ function AboutFrame({
             outRef.current?.removeEventListener('mousemove',onMove)
             outRef.current?.removeEventListener('mouseleave',onLeave)
         }
-    },{scope:".container-myskilltrees",dependencies:[wh]})
+    },{dependencies:[wh]})
 
     const ani = () => {
         const tl = gsap.to(outRef.current,{

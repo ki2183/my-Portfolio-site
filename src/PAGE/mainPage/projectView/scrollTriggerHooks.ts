@@ -147,6 +147,7 @@ function ScrollTriggerProjectViewHooks(){
                     rotateY:30,
                     skewY:-3,
                     scale:1 + orderNum*0.2,
+                    display:"block"
                 })
             }
             else{
@@ -159,6 +160,7 @@ function ScrollTriggerProjectViewHooks(){
                     rotateY:30,
                     skewY:-3,
                     scale:1+orderNum*0.2,
+                    display:"none"
                 })
             }
         })// IMG animation

@@ -17,6 +17,7 @@ import tailwind from "./tailwind.svg"
 import mongoDB from "./mongodb.svg"
 import typescript from "./typescript.svg"
 import scss from "./scss.svg"
+import velog from "./velog.svg"
 
 type GetSVG_type = {
     src:string
@@ -64,6 +65,8 @@ function GetSVG({src,class_name}:GetSVG_type){
         src_ = typescript
     else if (src === "scss")
         src_ = scss
+    else if (src === "velog")
+        src_ = velog
 
     return(
         <img 

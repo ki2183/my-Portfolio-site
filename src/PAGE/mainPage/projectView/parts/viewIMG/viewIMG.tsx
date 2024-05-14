@@ -1,6 +1,9 @@
 import "./viewIMG.scss"
 import GetIMG from "../../../../../FOLDER_img/getIMG"
 import { projectInformation_type, project_information } from "../../../../../projectInformation"
+import { useEffect, useReducer, useState } from "react"
+import { useAppDispatch } from "../../../../../REDUX/hooks"
+import { modal_open } from "../../../../../REDUX/Slices/modalSlice"
 type ViewIMG_type ={
     imgRef: React.MutableRefObject<(HTMLDivElement | null)[]>
 }
@@ -42,9 +45,15 @@ function ViewIMGPart({
     src,
     imgRef
 }:ViewIMGPart_type){
+    const dispatch = useAppDispatch()
+
+    const modal_is_open = () =>{
+        dispatch(modal_open())
+    }
+
     return (
         <div className="projectView-img" ref={el => imgRef.current[idx] = el}>
-            <div>
+            <div onClick={(()=>{modal_is_open()})}>
                 <GetIMG src={src}/>
                 <GetIMG src={src}/>
             </div>

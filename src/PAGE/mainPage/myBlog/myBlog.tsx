@@ -91,15 +91,15 @@ function MyBlog(){
         tl.from(elRef.current[0],{
             y:50,
             duration:0.5,
-        })
+        },0.5)
         tl.from(elRef.current[1],{
             y:50,
             duration:0.5,
-        },0.5)
+        },1)
         ScrollTrigger.create({
             trigger:".container-myBlog",
             animation:tl,
-            // scrub:1,
+            scrub:1,
             start:"center 90%",
             end:"center 90%",
             toggleActions:"restart none reverse none"

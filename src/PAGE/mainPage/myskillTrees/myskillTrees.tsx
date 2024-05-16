@@ -111,7 +111,7 @@ function AboutFrontend({wh}:about_type){
 
     return (
         <AboutFrame 
-                x={210}
+                x={50}
                 wh={wh}
                 title={"frontend-me"}
                 class_name_in="container-frontend-in"
@@ -156,7 +156,7 @@ function AboutBackend({wh}:about_type){
 
     return (
         <AboutFrame 
-                x={-400}
+                x={-300}
                 wh={wh}
                 title={"backend-me"}
                 class_name_in="container-backend-in"
@@ -197,7 +197,7 @@ function AboutVersionControl({wh}:about_type){
 
     return (
         <AboutFrame 
-                y={-50}
+                y={-20}
                 x={-550}
                 wh={wh}
                 title={"version-control-me"}
@@ -257,15 +257,15 @@ function AboutFrame({
     },{dependencies:[wh]})
 
     const ani = () => {
-        const tl = gsap.to(outRef.current,{
+        const tl = gsap.from(outRef.current,{
             x:x,
             y:y,
             duration: 1,
             scrollTrigger:{
                 scrub:1,
                 trigger: outRef.current,
-                start: "0% 80%",
-                end: "100% 80%",
+                start: `0% 80%`,
+                end: `100% 80%`,
                 toggleActions:"restart none reverce none"
             }
         })

@@ -1,7 +1,6 @@
 import "./viewIMG.scss"
 import GetIMG from "../../../../../FOLDER_img/getIMG"
-import { projectInformation_type, project_information } from "../../../../../projectInformation"
-import { useEffect, useReducer, useState } from "react"
+import { project_information } from "../../../../../projectInformation"
 import { useAppDispatch } from "../../../../../REDUX/hooks"
 import { modal_open } from "../../../../../REDUX/Slices/modalSlice"
 type ViewIMG_type ={

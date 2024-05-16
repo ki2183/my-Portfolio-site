@@ -56,9 +56,22 @@ function ProjectView(){
         const scroll_setup_async = async()=>{
             await new Promise<void>((resolve,reject)=>{
                 window.addEventListener('resize',()=>{
-                    ScrollTrigger.getAll().forEach(trigger=>{
-                        trigger.kill()
-                    })
+                    // ScrollTrigger.getAll().forEach(trigger=>{
+                    //     console.log(trigger)
+                    //     trigger.kill()
+                    // })
+                    const func = () =>{
+                    const Trigger1 = ScrollTrigger.getById("scroll-img");
+                    if(Trigger1)
+                        Trigger1.kill()
+                    const Trigger2 = ScrollTrigger.getById("scroll-line");
+                    if(Trigger2)
+                        Trigger2.kill()
+                    const Trigger3 = ScrollTrigger.getById("scroll-info");
+                    if(Trigger3)
+                        Trigger3.kill()
+                    }
+                    func()
                     resolve();
                 })    
             })

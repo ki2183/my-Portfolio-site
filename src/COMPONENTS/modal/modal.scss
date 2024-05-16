@@ -65,7 +65,6 @@
     list-style:disc;
     margin-left: 1rem;
 }.modal-link-ol{
-    // list-style: auto;
     margin-left: 0.5rem;
     padding: 0.5rem;
     &>li{
@@ -92,9 +91,7 @@
     gap:0.2rem;
     padding: 0.2rem 0.4rem 0.2rem 0.4rem;
     border-radius: 6px;
-    background: linear-gradient(135deg, black,#0d0d0d 75%);
-    border-bottom: 1px solid rgb(70, 70, 70);
-    border-right: 1px solid rgb(70, 70, 70);
+
     &>img{
         width: 1rem;
         height: 1rem;
@@ -113,13 +110,13 @@
     width: 10px;
   }
   .container-modal::-webkit-scrollbar-thumb {
-    background-color:#323232;
+    // background-color:#323232;
     border-radius: 10px;
     background-clip: padding-box;
     border: 2px solid transparent;
   }
   .container-modal::-webkit-scrollbar-track {
-    background-color: rgb(0, 0, 0);
+    // background-color: rgb(0, 0, 0);
     border-radius: 10px;
     // box-shadow: inset 0px 0px 1px white;
   }

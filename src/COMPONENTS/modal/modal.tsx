@@ -6,12 +6,13 @@ import { useDispatch } from "react-redux"
 import { useAppSelector } from "../../REDUX/hooks"
 import { modal_close } from "../../REDUX/Slices/modalSlice"
 import GetSVG from "../../FOLDER_svg/getSVG"
-import { useEffect, useRef } from "react"
+import React, { useEffect, useRef } from "react"
 
 
 
 function ViewModal(){
     const modal = useAppSelector(state => state.modal)
+    const {window} = useAppSelector(state => state.theme)
     const dispatch = useDispatch()
     const customModalStyles: ReactModal.Styles = {
         overlay: {
@@ -24,8 +25,10 @@ function ViewModal(){
           left: "0",
         },
         content: {
-          width: "920px",
-          height: "1000px",
+          width: "50vw",
+          height: "90vh",
+          maxWidth:"900px",
+          maxHeight:"1000px",
           padding:"0rem",
           paddingTop:"1rem",
           paddingBottom:"1rem",
@@ -36,30 +39,22 @@ function ViewModal(){
           transform: "translate(-50%, -50%)",
           borderRadius: "10px",
           boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
-          backgroundColor: "#151515",
+        //   backgroundColor: "#151515",
+          background:window,
           justifyContent: "center",
           overflow: "auto",
         },
       };
 
     const ref = useRef<HTMLOListElement>(null)
-    const animation = useRef(null)
 
-
-    // useEffect(()=>{
-    //     const ctx = gsap.context(()=>{ //gsap.context()는 여러요소에 동일한 애니메이션 속성을 적용할때 씀
-    //         animation.current = gsap.from(ref.current.children,{
-    //             opacity:0,
-    //             stagger:0.2, 
-    //             x:5,             }) 
-    //     })
-    //     return () => ctx.revert() //애니메이션 끝나면 원래상태로 되돌리긔
-    // },[])
-    // },[modal])
+    const handleScroll = (e:React.SyntheticEvent<HTMLDivElement>) => {
+        e.stopPropagation(); // 이벤트 버블링 중지
+      }
 
     return (
       <ReactModal style={customModalStyles} isOpen={modal} onRequestClose={()=>dispatch(modal_close())}>
-        <div className="container-modal fccs">
+        <div className="container-modal fccs" onScroll={handleScroll}>
             <h1>배달웹 프로젝트</h1>
             <div className="modal-line"/>
             <ol className="fcsc" ref={ref}>

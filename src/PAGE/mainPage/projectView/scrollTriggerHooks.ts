@@ -70,6 +70,7 @@ function ScrollTriggerProjectViewHooks(){
         const tl_info = gsap.timeline()    
 
         ScrollTrigger.create({
+            id:"scroll-img",
             trigger:".frame-projectView-img",
             animation:gsap.set('.frame-projectView-img',{}),
             scrub:1,
@@ -78,6 +79,7 @@ function ScrollTriggerProjectViewHooks(){
             pin:true,
         }) //IMG PIN
         ScrollTrigger.create({
+            id:"scroll-line",
             trigger:".frame-projectView-line",
             animation:tl,
             scrub:1,
@@ -85,6 +87,7 @@ function ScrollTriggerProjectViewHooks(){
             end: `${ref.current?.clientHeight} ${window.innerHeight}`,
         })//LINE
         ScrollTrigger.create({
+            id:"scroll-info",
             trigger:".frame-projectView-info-in",
             animation:tl_info,
             scrub:1,
@@ -147,7 +150,6 @@ function ScrollTriggerProjectViewHooks(){
                     rotateY:30,
                     skewY:-3,
                     scale:1 + orderNum*0.2,
-                    display:"block"
                 })
             }
             else{
@@ -160,7 +162,6 @@ function ScrollTriggerProjectViewHooks(){
                     rotateY:30,
                     skewY:-3,
                     scale:1+orderNum*0.2,
-                    display:"none"
                 })
             }
         })// IMG animation

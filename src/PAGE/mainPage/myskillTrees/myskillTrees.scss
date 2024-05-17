@@ -87,7 +87,7 @@ $width-front:240px;
 
             &>span{
                 text-align: start;
-                line-height: 1.5rem;
+                line-height: 1.2rem;
             }
         }
     }
@@ -100,8 +100,8 @@ $width-front:240px;
     height: 350px;
     // background-color: white;
     left:50%;
-    top:50%;
-    transform: translate(220px,-47%);
+    top:55%;
+    transform: translate(80%,-50%);
     z-index: 10;
 }
 .container-frontend-in{

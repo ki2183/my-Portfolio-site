@@ -7,8 +7,6 @@ import { useAppSelector } from "../../REDUX/hooks"
 import { modal_close } from "../../REDUX/Slices/modalSlice"
 import GetSVG from "../../FOLDER_svg/getSVG"
 import React, { useEffect, useRef } from "react"
-import { useGSAP } from "@gsap/react"
-import gsap from "gsap"
 
 
 
@@ -50,13 +48,11 @@ function ViewModal(){
 
     const ref = useRef<HTMLOListElement>(null)
 
-    const handleScroll = (e:React.SyntheticEvent<HTMLDivElement>) => {
-        e.stopPropagation(); // 이벤트 버블링 중지
-      }
-
     return (
       <ReactModal style={customModalStyles} isOpen={modal} onRequestClose={()=>dispatch(modal_close())}>
-        <div className="container-modal fccs" onScroll={handleScroll}>
+        <div className="container-modal fccs" onScroll={e=>{
+            e.stopPropagation()
+        }}>
             <h1>배달웹 프로젝트</h1>
             <div className="modal-line"/>
             <ol className="fcsc" ref={ref}>
@@ -104,7 +100,7 @@ function ViewModal(){
                         <span className="material-symbols-outlined link-svg">
                             manufacturing
                         </span>
-                        <span>project-summary</span>
+                        <span>project-features</span>
                     </div>
                         <div className="li-info fcsc">
                             <div className="frcs">
@@ -185,10 +181,6 @@ function ViewModal(){
                                 처음으로 외부 API데이터를 매핑하여 동적요소를 생성하는 경험을 하고 덕분에 react의 state component 방식에 익숙해지는 계기가 되었습니다.
                                 </div>
                             </div>
-                            {/* <div className="frss">
-                                <span>3</span>새로 학습한 React와 api를 활용한 동적 요소 생성을 경험해 보기 위해서 프로젝트를 진행했고
-                            같이 작업한 선배는 스프링 프레임 워크를 학습하기 위해서 같이 프로젝트를 진행했습니다.
-                            </div> */}
                         </div>
                         
                     <div/>
@@ -201,19 +193,206 @@ function ViewModal(){
 
 export default ViewModal
 
-// base-white-svg
-
 type ModalStackSvg_type = {
     src:string
     title:string
     class_name?:string
+    not_mine?:boolean
 }
 
-function ModalStackSvg({src,title,class_name}:ModalStackSvg_type){
+function ModalStackSvg({src,title,class_name,not_mine}:ModalStackSvg_type){
     return (
         <div className="modal-stack-svg frcc">
             <GetSVG class_name={class_name} src={src}/>
-            <span>{title}</span>
+            <span className={not_mine ? "modal-not-mine" : ""}>{title}</span>
         </div>
+    )
+}
+
+type ModalTitle_type = {
+    title:string
+}
+function ModalTitle({title}:ModalTitle_type){
+    return (
+        <h1>{title}</h1>
+    )
+}
+
+type ModalLink_type = {
+    link:string
+}
+function ModalLink({link}:ModalLink_type){
+    return (
+        <li className="fcsc conatiner-modal-li">
+                    <div className="frcs">
+                        <span className="material-symbols-outlined link-svg clip-svg">
+                            link
+                        </span>
+                        <span>project-link</span>
+                    </div>
+                   <ol className="modal-link-ol">
+                    <li>
+                        <span>1</span>
+                        <a className="link-project">
+                            {link}
+                        </a>
+                    </li>
+                    
+                   </ol>
+                    
+                </li>
+    )
+}
+type ModalSummary_type = {
+    summary:string[]
+}
+function ModalSummary({summary}:ModalSummary_type){
+    return(
+        <li className="fcsc conatiner-modal-li">
+                    <div className="frcs">
+                        <span className="material-symbols-outlined link-svg">
+                            edit
+                        </span>
+                        <span>project-summary</span>
+                    </div>
+                        <div className="li-info fcsc">
+                            {
+                                (summary && summary.length>0) && summary.map((item,idx)=>(
+                                    <div className="frcs" key={idx}>
+                                        <span>{idx}</span>{item}<br/>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                        
+                    <div/>
+                </li>
+    )
+}
+type ModalManufacturing_type = {
+    manufacturing:string[]
+}
+function ModalManufacturing({manufacturing}:ModalManufacturing_type){
+    return (
+        <li className="fcsc conatiner-modal-li">
+                    <div className="frcs">
+                        <span className="material-symbols-outlined link-svg">
+                            manufacturing
+                        </span>
+                        <span>project-features</span>
+                    </div>
+                        <div className="li-info fcsc">
+                            {
+                                (manufacturing && manufacturing.length>0) && manufacturing.map((item,idx)=>(
+                                    <div className="frcs" key={idx}>
+                                        <span>{idx}</span>{item}
+                                    </div>
+                                ))
+                            }
+                        </div>
+                        
+                    <div/>
+                </li>
+    )
+}
+
+type ModalStack_type = {
+    frontends:ModalStackSvg_type[]
+    backends:ModalStackSvg_type[]
+    versionControls:ModalStackSvg_type[]
+}
+
+function ModalStack({frontends,backends,versionControls}:ModalStack_type){
+    return(
+        <li className="fcsc conatiner-modal-li">
+        <div className="frcs">
+            <span className="material-symbols-outlined link-svg">
+                account_tree
+            </span>
+            <span>project-stacks</span>
+        </div>
+            <div className="li-info fcsc">
+                <div className="frcs">
+                    <span>frontend:</span>
+                    <div className="frcs">
+                        {
+                            (frontends && frontends.length > 0)&&frontends.map((item,idx)=>(
+                                <ModalStackSvg
+                                    key={idx}
+                                    src={item.src} 
+                                    title={item.title} 
+                                    class_name={item.class_name} 
+                                    not_mine={item.not_mine}
+                                />
+                            ))
+                        }
+                    </div>
+                </div>
+                <div className="frcs">
+                    <span>backend:</span>
+                    <div className="frcs">
+                    {
+                            (backends && backends.length > 0) && backends.map((item,idx)=>(
+                                <ModalStackSvg
+                                    key={idx}
+                                    src={item.src} 
+                                    title={item.title} 
+                                    class_name={item.class_name} 
+                                    not_mine={item.not_mine}
+                                />
+                            ))
+                        }
+                    </div>
+                </div>
+                <div className="frcs">
+                    <span>version_control:</span>
+                    <div className="frcs">
+                        {
+                            (versionControls && versionControls.length > 0) && versionControls.map((item,idx)=>(
+                                <ModalStackSvg
+                                    key={idx}
+                                    src={item.src} 
+                                    title={item.title} 
+                                    class_name={item.class_name} 
+                                    not_mine={item.not_mine}
+                                />
+                            ))
+                        }
+                    </div>
+                </div>
+            </div>
+            
+        <div/>
+    </li>
+    )
+}
+type ModalReflection_type = {
+    reflection:string[]
+}
+function ModalReflection({reflection}:ModalReflection_type){
+    return (
+        <li className="fcsc conatiner-modal-li">
+                    <div className="frcs">
+                        <span className="material-symbols-outlined link-svg">
+                            book_2
+                        </span>
+                        <span>project-reflection</span>
+                    </div>
+                        <div className="li-info fcsc">
+                            {
+                                (reflection && reflection.length > 0) && 
+                                    reflection.map((item,idx)=>(
+                                        <div className="" key={idx}>
+                                            <span>{idx+1}</span>
+                                            <div>
+                                                {item}
+                                            </div>
+                                        </div>
+                                    ))
+                            }
+                        </div>
+                        
+                    <div/>
+                </li>          
     )
 }

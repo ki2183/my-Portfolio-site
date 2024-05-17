@@ -117,8 +117,8 @@ function AboutFrontend({wh}:about_type){
 
     return (
         <AboutFrame 
-                x={50}
-                y={5}
+                // x={50}
+                y={70}
                 wh={wh}
                 title={"frontend-me"}
                 class_name_in="container-frontend-in"
@@ -251,8 +251,6 @@ function AboutFrame({
     const outRef = useRef<HTMLDivElement>(null)
     const {onLeave,onMove} = hookAnimation({outRef,inRef})
     const {window,tree_info_border} = useAppSelector(state => state.theme)
-
-    let animation_:TweenLite|null = null
  
     useGSAP(()=>{
         outRef.current?.addEventListener('mousemove',onMove)
@@ -282,7 +280,7 @@ function AboutFrame({
     useEffect(()=>{
         ani()
         return ()=>{
-            ani().kill()
+            // ani().kill()
         }    
     },[wh])
 

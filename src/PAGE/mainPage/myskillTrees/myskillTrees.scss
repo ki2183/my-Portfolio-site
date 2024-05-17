@@ -81,6 +81,15 @@ $width-front:240px;
         gap:0.5rem;
         font-size: 1.05rem;
         margin-top: 0.5rem;
+        &>li{
+            display: grid;
+            grid-template-columns: 1rem auto;
+
+            &>span{
+                text-align: start;
+                line-height: 1.5rem;
+            }
+        }
     }
 }
 
@@ -92,7 +101,7 @@ $width-front:240px;
     // background-color: white;
     left:50%;
     top:50%;
-    transform: translate(220px,-60%);
+    transform: translate(220px,-47%);
     z-index: 10;
 }
 .container-frontend-in{

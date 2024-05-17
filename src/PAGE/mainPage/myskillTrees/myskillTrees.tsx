@@ -63,13 +63,19 @@ function AboutMe({wh}:about_type){
             >
                     <ol className="fcss">
                         <li>
-                            <span>1</span> 안녕하세요! 저는 프론트엔드 신입개발자가 되길 바라는 <span className={theme === "dark"?"green":"blue"}>김기준</span>입니다.
+                            <span>1</span> 
+                            <span>
+                                안녕하세요! 저는 프론트엔드 신입개발자가 되길 바라는 <span className={theme === "dark"?"green":"blue"}>김기준</span>입니다.
+                            </span>
                         </li>
                         <li>
-                            <span>2</span> 저는 김기준입니다.
+                            <span>2</span>
+                            <span> 비록 성적 맞춰 진학한 과였지만 웹 프로그래밍 수업후 관심을 갖게 되어 프런트엔드 개발자를 꿈꾸게 되었습니다.</span>
+
                         </li>
                         <li>
-                            <span>3</span> 재사용성있는 코드 만들기를 좋아해요
+                            <span>3</span>
+                            <span>더 완성도 있는 코드, 더 발전하는 ux/ui를 만들 수 있는 사람이 되겠습니다.</span>
                         </li>                        
                     </ol>
             </AboutFrame>
@@ -112,6 +118,7 @@ function AboutFrontend({wh}:about_type){
     return (
         <AboutFrame 
                 x={50}
+                y={5}
                 wh={wh}
                 title={"frontend-me"}
                 class_name_in="container-frontend-in"

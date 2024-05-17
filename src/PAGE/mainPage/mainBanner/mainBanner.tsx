@@ -20,7 +20,7 @@ function MainBanner(){
                     stagger:idx,
                     zIndex:5,
                     scrollTrigger:{
-                        trigger:"container-mainBanner",
+                        trigger:".container-mainBanner",
                         scrub:1,
                         start:`${upRate[idx]}% start`,
                         end:"100% start",

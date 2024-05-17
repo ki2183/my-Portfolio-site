@@ -7,6 +7,8 @@ import { useAppSelector } from "../../REDUX/hooks"
 import { modal_close } from "../../REDUX/Slices/modalSlice"
 import GetSVG from "../../FOLDER_svg/getSVG"
 import React, { useEffect, useRef } from "react"
+import { useGSAP } from "@gsap/react"
+import gsap from "gsap"
 
 
 
@@ -168,22 +170,25 @@ function ViewModal(){
                         <span className="material-symbols-outlined link-svg">
                             book_2
                         </span>
-                        <span>project-summary</span>
+                        <span>project-reflection</span>
                     </div>
                         <div className="li-info fcsc">
-                            <div className="frcs">
-                                <span>1</span>배달앱/웹의 전반적인 기능을 구현해보기 위해서 만든 사이트입니다. <br/>
+                            <div className="">
+                                <span>1</span>
+                                <div>
+                                    팀원 활동시간대가 맞지 않아 소통이 원활하지 않기에 jira를 이용하여 이슈를 올려 체크하고 수정하는 방법을 채택하고, 처음 체계적으로 팀원과 소통하여 개발했습니다.
+                                </div>
                             </div>
                             <div className="frss">
-                                <span>2</span>새로 학습한 React와 api를 활용한 동적 요소 생성을 경험해 보기 위해서 프로젝트를 진행했고
-                            같이 작업한 선배는 스프링 프레임 워크를 학습하기 위해서 같이 프로젝트를 진행했습니다.
-                            </div><div className="frss">
+                                <span>2</span>
+                                <div>
+                                처음으로 외부 API데이터를 매핑하여 동적요소를 생성하는 경험을 하고 덕분에 react의 state component 방식에 익숙해지는 계기가 되었습니다.
+                                </div>
+                            </div>
+                            {/* <div className="frss">
                                 <span>3</span>새로 학습한 React와 api를 활용한 동적 요소 생성을 경험해 보기 위해서 프로젝트를 진행했고
                             같이 작업한 선배는 스프링 프레임 워크를 학습하기 위해서 같이 프로젝트를 진행했습니다.
-                            </div><div className="frss">
-                                <span>4</span>새로 학습한 React와 api를 활용한 동적 요소 생성을 경험해 보기 위해서 프로젝트를 진행했고
-                            같이 작업한 선배는 스프링 프레임 워크를 학습하기 위해서 같이 프로젝트를 진행했습니다.
-                            </div>
+                            </div> */}
                         </div>
                         
                     <div/>

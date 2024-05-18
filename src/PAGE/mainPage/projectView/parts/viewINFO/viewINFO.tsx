@@ -1,6 +1,6 @@
 import GetSVG from "../../../../../FOLDER_svg/getSVG"
 import "./viewINFO.scss"
-import { projectInformation_type, project_information } from "../../../../../projectInformation"
+import { InfoModal_type, projectInformation_type, project_information_dto } from "../../../../../projectInformation"
 
 type ViewINFO_type = {
     informationRef: React.MutableRefObject<(HTMLDivElement | null)[]>
@@ -19,8 +19,8 @@ function ViewINFO({
         <div className="frame-projectView-info">
             <div className="frame-projectView-info-in f-c-c-s">
                 <div className="f-c-c-s projectView-info" style={{marginTop:wh.h/2,gap:"48px"}}>
-                    {(project_information && project_information.length > 0) 
-                        && project_information.map((item,idx)=>(
+                    {(project_information_dto && project_information_dto.length > 0) 
+                        && project_information_dto.slice().reverse().map((item,idx)=>(
                                 <ProejectINFOParts
                                     key={idx}
                                     idx={idx}
@@ -39,7 +39,7 @@ export default ViewINFO
 
 interface ViewINFOParts_interface extends ViewINFO_type{
     idx:number
-    projectInformation:projectInformation_type
+    projectInformation:InfoModal_type
 }
 
 function ProejectINFOParts({
@@ -47,18 +47,22 @@ function ProejectINFOParts({
     informationRef,
     projectInformation
 }:ViewINFOParts_interface){
-    const {link,info,title,frontend,backend,versionControl} = projectInformation
+    // const {link,info,title,frontend,backend,versionControl} = projectInformation
+    const {link,title,stacks,reason} = projectInformation
+    const {backends,frontends,versionControls} = stacks
+
     return(
         <div className="f-c-c-c" ref={el => informationRef.current[idx] = el}>
         <div className="projectView-info-in f-c-c-c">
             <span className="projectView-in-title">{title}</span>
             
             <div className="f-c-c-c">
-                {
-                    (info && info.length > 0) && info.map((item,idx)=>(
+                <span>{reason[1]}</span>
+                {/* {
+                    (reason && reason.length > 0) && reason.map((item,idx)=>(
                         <span key={idx}>{item}</span>
                     ))
-                }
+                } */}
             </div>
         </div>
 
@@ -69,13 +73,13 @@ function ProejectINFOParts({
 
         <div className="projectView-info-skill-set f-c-s-s">
             {
-                frontend && (
+                frontends && (
                     <div className=" f-r-c-s">
                         {
-                            frontend.map((item,idx)=>(
+                            frontends.map((item,idx)=>(
                                 <span key={idx} className="f-r-c-c">
-                                    <GetSVG src={item} />
-                                    <span>{item}</span>
+                                    <GetSVG src={item.src} />
+                                    <span>{item.title}</span>
                                 </span>   
                             ))
                         }
@@ -85,13 +89,13 @@ function ProejectINFOParts({
             }
                 
             {
-                backend && (
+                backends && (
                     <div className=" f-r-c-s">
                         {
-                            backend.map((item,idx)=>(
+                            backends.map((item,idx)=>(
                                 <span key={idx} className="f-r-c-c">
-                                    <GetSVG src={item} />
-                                    <span>{item}</span>
+                                    <GetSVG src={item.src} />
+                                    <span>{item.title}</span>
                                 </span>   
                             ))
                         }
@@ -100,13 +104,13 @@ function ProejectINFOParts({
                 )
             }
             {
-                versionControl && (
+                versionControls && (
                     <div className=" f-r-c-s">
                         {
-                            versionControl.map((item,idx)=>(
+                            versionControls.map((item,idx)=>(
                                 <span key={idx} className="f-r-c-c">
-                                    <GetSVG src={item} />
-                                    <span>{item}</span>
+                                    <GetSVG src={item.src} />
+                                    <span>{item.title}</span>
                                 </span>   
                             ))
                         }

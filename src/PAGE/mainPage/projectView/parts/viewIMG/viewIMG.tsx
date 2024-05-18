@@ -1,6 +1,6 @@
 import "./viewIMG.scss"
 import GetIMG from "../../../../../FOLDER_img/getIMG"
-import { project_information } from "../../../../../projectInformation"
+import { project_information_dto } from "../../../../../projectInformation"
 import { useAppDispatch } from "../../../../../REDUX/hooks"
 import { modal_open } from "../../../../../REDUX/Slices/modalSlice"
 type ViewIMG_type ={
@@ -16,8 +16,8 @@ function ViewIMG({
             <div className="frame-projectView-img f-c-c-c" >
                 <div>
                     {
-                        (project_information && project_information.length > 0) &&
-                            project_information.map((item,idx)=>(
+                        (project_information_dto && project_information_dto.length > 0) &&
+                            project_information_dto.slice().reverse().map((item,idx)=>(
                                 <ViewIMGPart
                                     key={idx}
                                     idx={idx}

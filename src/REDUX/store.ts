@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import themeSlice from './Slices/themeSlice'
 import modalSlice from './Slices/modalSlice'
+import viewNumSlice from './Slices/viewNumSlice'
 
 export const store = configureStore({
   reducer: {
     modal:modalSlice,
-    theme:themeSlice
+    theme:themeSlice,
+    viewNum:viewNumSlice,
   }
 })
 

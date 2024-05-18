@@ -7,8 +7,10 @@ import ScrollTriggerProjectViewHooks from "./scrollTriggerHooks"
 import ViewIMG from "./parts/viewIMG/viewIMG"
 import ViewLINE from "./parts/viewLINE/viewLINE"
 import ViewINFO from "./parts/viewINFO/viewINFO"
-import { project_information } from "../../../projectInformation"
+import { project_information_dto } from "../../../projectInformation"
 import ViewModal from "../../../COMPONENTS/modal/modal"
+import { useAppDispatch } from "../../../REDUX/hooks"
+import { chanage_view_number } from "../../../REDUX/Slices/viewNumSlice"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -31,6 +33,8 @@ function ProjectView(){
     const scroll_page_handler = () => scrollTrigger_page_handler({gap,imgRef,pageNum,informationRef})
     const scroll_setup_handler = () => scrollTrigger_setup_handler({ref,imgRef,bdFstRef,bdSecRef,bdTrdRef,page_hanler,pageNum})
     const page_hanler = (num:number)=> setPageNum(num) // setPage Func
+
+    const dispatch = useAppDispatch()
 
     const getWH = () => {
         const width = window.innerWidth
@@ -85,12 +89,16 @@ function ProjectView(){
         scroll_page_handler()
     },[pageNum,wh]) //pageNum animation
 
+    useEffect(()=>{
+        dispatch(chanage_view_number(pageNum))
+    },[pageNum])
+
     return (
         <div ref={ref} className="container-projectView">
             <ViewModal/>
            <ViewIMG imgRef={imgRef}/>
            <ViewLINE
-                num={project_information.length}
+                num={project_information_dto.length}
                 bdFstRef={bdFstRef}
                 bdSecRef={bdSecRef}
                 bdTrdRef={bdTrdRef}

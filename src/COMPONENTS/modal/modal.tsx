@@ -57,7 +57,6 @@ function ViewModal(){
             <div className="modal-line"/>
             <ol className="fcsc" ref={ref}>
                 <ModalLink link={project_information_dto[viewNum].link}/>
-                {/* <ModalSummary summary={project_information[viewNum].summary}/> */}
                 <ModalReason reason={project_information_dto[viewNum].reason}/>
                 <ModalManufacturing manufacturing={project_information_dto[viewNum].feature}/>
                 <ModalStack frontends={project_information_dto[viewNum].stacks.frontends} backends={project_information_dto[viewNum].stacks.backends} versionControls={project_information_dto[viewNum].stacks.versionControls}/>
@@ -99,6 +98,9 @@ export type ModalLink_type = {
     link:string
 }
 function ModalLink({link}:ModalLink_type){
+    const click_link = () => {
+        window.location.href = link
+    }
     return (
         <li className="fcsc conatiner-modal-li">
                     <div className="frcs">
@@ -110,7 +112,7 @@ function ModalLink({link}:ModalLink_type){
                    <ol className="modal-link-ol">
                     <li>
                         <span>1</span>
-                        <a className="link-project">
+                        <a onClick={click_link} className="link-project">
                             {link}
                         </a>
                     </li>
@@ -122,29 +124,6 @@ function ModalLink({link}:ModalLink_type){
 }
 export type ModalFeature_type = {
     feature:string[]
-}
-function ModalFeature({feature}:ModalFeature_type){
-    return(
-        <li className="fcsc conatiner-modal-li">
-                    <div className="frcs">
-                        <span className="material-symbols-outlined link-svg">
-                            edit
-                        </span>
-                        <span>project-feature</span>
-                    </div>
-                        <div className="li-info fcsc">
-                            {
-                                (feature && feature.length>0) && feature.map((item,idx)=>(
-                                    <div className="frcs" key={idx}>
-                                        <span>{idx+1}</span>{item}<br/>
-                                    </div>
-                                ))
-                            }
-                        </div>
-                        
-                    <div/>
-                </li>
-    )
 }
 
 export type ModalReason_type = {

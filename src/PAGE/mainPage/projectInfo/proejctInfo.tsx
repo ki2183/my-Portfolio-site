@@ -1,7 +1,6 @@
 import { useAppSelector } from "../../../REDUX/hooks"
 import "./proejctInfo.scss"
 import { projectInfoDto, viewTree_type } from "./proejctInfoDto"
-import { useEffect } from "react"
 const react_hook_form_SVG  = "https://react-hook-form.com/images/logo/react-hook-form-logo-only.svg"
 
 

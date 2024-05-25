@@ -39,13 +39,13 @@ function MainBanner(){
         </div>
         <div className="fccc intro-div">
             <span className="roboto-black">
-                I want to give you the best UI/UX.
+                Hello World
             </span>
             <span className="roboto-black">
-                and to be close to various libraries.
+                - Frontend -
             </span>
             <span className="roboto-black">
-                I'm gijoon
+                안녕하세요. 김기준입니다.
             </span>
         </div>
     </div>

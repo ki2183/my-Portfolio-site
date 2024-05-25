@@ -3,6 +3,9 @@ import GetIMG from "../../../../../FOLDER_img/getIMG"
 import { project_information_dto } from "../../../../../projectInformation"
 import { useAppDispatch } from "../../../../../REDUX/hooks"
 import { modal_open } from "../../../../../REDUX/Slices/modalSlice"
+import { useEffect, useLayoutEffect } from "react"
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react"
 type ViewIMG_type ={
     imgRef: React.MutableRefObject<(HTMLDivElement | null)[]>
 }
@@ -11,9 +14,25 @@ function ViewIMG({
     imgRef,
 
 }:ViewIMG_type){
+
+    useLayoutEffect(()=>{
+        gsap.set("#triangle1",{
+            skewY:9,
+            rotateY:-9,
+            
+        })
+    },[])
+    useGSAP(()=>{
+        gsap.to("#triangle1",{
+            opacity:0,
+            repeat:Infinity,
+            duration:4,
+        })
+    },[])
     return (
         <>
             <div className="frame-projectView-img f-c-c-c" >
+                <div id="triangle1"/>
                 <div>
                     {
                         (project_information_dto && project_information_dto.length > 0) &&

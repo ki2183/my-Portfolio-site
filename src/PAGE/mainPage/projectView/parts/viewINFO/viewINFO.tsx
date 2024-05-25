@@ -48,29 +48,31 @@ function ProejectINFOParts({
     projectInformation
 }:ViewINFOParts_interface){
     // const {link,info,title,frontend,backend,versionControl} = projectInformation
-    const {link,title,stacks,reason} = projectInformation
+    const {link,title,stacks,reason,date} = projectInformation
     const {backends,frontends,versionControls} = stacks
+
+    const click_link = () =>{
+        window.location.href = link
+    }
 
     return(
         <div className="f-c-c-c" ref={el => informationRef.current[idx] = el}>
         <div className="projectView-info-in f-c-c-c">
             <span className="projectView-in-title">{title}</span>
-            
             <div className="f-c-c-c">
                 <span>{reason[1]}</span>
-                {/* {
-                    (reason && reason.length > 0) && reason.map((item,idx)=>(
-                        <span key={idx}>{item}</span>
-                    ))
-                } */}
             </div>
         </div>
 
         <div className="projectView-info-link f-r-c-s">
            <span>link:</span>
-           <span>{link}</span>
+           <span onClick={e=>click_link()}>{link}</span>
+           
         </div>
-
+        <div className="projectView-info-date f-r-c-s">
+            <span>기간:</span>
+            <span>{date}</span>
+        </div>
         <div className="projectView-info-skill-set f-c-s-s">
             {
                 frontends && (
@@ -78,8 +80,8 @@ function ProejectINFOParts({
                         {
                             frontends.map((item,idx)=>(
                                 <span key={idx} className="f-r-c-c">
-                                    <GetSVG src={item.src} />
-                                    <span>{item.title}</span>
+                                    <GetSVG src={item.src} class_name={item.class_name}/>
+                                    <span className={item.not_mine ? "modal-not-mine":""}>{item.title}</span>
                                 </span>   
                             ))
                         }
@@ -94,8 +96,8 @@ function ProejectINFOParts({
                         {
                             backends.map((item,idx)=>(
                                 <span key={idx} className="f-r-c-c">
-                                    <GetSVG src={item.src} />
-                                    <span>{item.title}</span>
+                                    <GetSVG src={item.src} class_name={item.class_name}/>
+                                    <span className={item.not_mine ? "modal-not-mine":""}>{item.title}</span>
                                 </span>   
                             ))
                         }
@@ -109,7 +111,7 @@ function ProejectINFOParts({
                         {
                             versionControls.map((item,idx)=>(
                                 <span key={idx} className="f-r-c-c">
-                                    <GetSVG src={item.src} />
+                                    <GetSVG src={item.src} class_name={item.class_name}/>
                                     <span>{item.title}</span>
                                 </span>   
                             ))

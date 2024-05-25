@@ -10,7 +10,7 @@ export const lightTheme = {
     svg_white:"invert(0%)",
     modal_svg_bg:"linear-gradient(135deg, #dddddd, #e7e7e7 75%)",
     modal_svg_bd:"1px solid rgb(203 203 203)",
-    modal_scroll_button:"#d2d2d2"
+    modal_scroll_button:"#d2d2d2",
 }
 
 export const darkTheme = {
@@ -25,7 +25,7 @@ export const darkTheme = {
     svg_white:"invert(100%)",
     modal_svg_bg:"linear-gradient(135deg, black, #0d0d0d 75%)",
     modal_svg_bd:"1px solid rgb(70, 70, 70)",
-    modal_scroll_button:"#4b4b4b"
+    modal_scroll_button:"#4b4b4b",
 }
 
 export type Theme = typeof lightTheme

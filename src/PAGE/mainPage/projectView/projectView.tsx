@@ -60,10 +60,6 @@ function ProjectView(){
         const scroll_setup_async = async()=>{
             await new Promise<void>((resolve,reject)=>{
                 window.addEventListener('resize',()=>{
-                    // ScrollTrigger.getAll().forEach(trigger=>{
-                    //     console.log(trigger)
-                    //     trigger.kill()
-                    // })
                     const func = () =>{
                     const Trigger1 = ScrollTrigger.getById("scroll-img");
                     if(Trigger1)
@@ -112,5 +108,3 @@ function ProjectView(){
 }
 
 export default ProjectView
-
-

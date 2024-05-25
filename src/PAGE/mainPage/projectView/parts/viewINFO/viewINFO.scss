@@ -51,4 +51,11 @@
         text-decoration: underline;
     }
     margin-bottom: 0.5rem;
+}.projectView-info-date{
+    font-size: 0.9rem;
+    margin-right: auto;
+    margin-bottom: 6px;
+    &>span:nth-child(1){
+        font-weight: bolder;
+    }
 }

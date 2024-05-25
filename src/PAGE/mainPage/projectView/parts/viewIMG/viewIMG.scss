@@ -44,4 +44,15 @@
         // opacity: 0.3;
         background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5)); /* 그라데이션으로 투명도 조절 */
     }
+}#triangle1{
+    position:absolute;
+    top: 15%;
+    left: 50%;
+    width: 5rem;
+    height: 2rem;
+    border-bottom: 40px solid transparent;
+    border-top: 40px solid #c7c7c7d8;
+    border-left: 45px solid transparent;
+    border-right: 45px solid transparent;
+    z-index: 5;
 }
